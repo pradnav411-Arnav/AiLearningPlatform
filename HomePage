@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<style>
+    div {
+    width:300px;
+    border:15x solid black;
+    padding: 50px;
+    margin: 20px;
+    }
+</style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Learning Site</title>
 </head>
 <body>
     <h1>Welcome</h1>
-    <h2>Learning</h2>
-    <h4>This is an educational website which helps aid in learning AI usage by showing the benefits and the use cases:</h4>
+    <div>Learning</div>
+    <div>This is an educational website which helps aid in learning AI usage by showing the benefits and the use cases:</div>
     <h5>Ethical Use Cases:</h5>
     <ul>
         <li>Using AI to Further Knowledge by asking Questions</li>
