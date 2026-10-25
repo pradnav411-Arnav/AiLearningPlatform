@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Scoreboard</title>
+  <style>
+    body {
+      text-align: center;
+    }
+    table {
+      margin: 0 auto;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>AI Learning Portal</h1>
+  
+  <p>
+    <a href="HomePage.html">Home</a> | 
+    <a href="MissionPage.html">Mission Page</a> | 
+    <a href="Scoreboard.html">Scoreboard</a>
+  </p>
+
+  <hr>
+
+  <h2>Student Scoreboard</h2>
+
+  <label>Student Name:</label><br>
+  <input type="text" id="playerName"><br><br>
+
+  <label>Score:</label><br>
+  <input type="number" id="playerScore"><br><br>
+
+  <button onclick="addScore()">Add Score</button>
+
+  <br><br>
+
+  <table border="1" id="scoreTable">
+    <tr>
+      <th>Rank</th>
+      <th>Student Name</th>
+      <th>Score</th>
+    </tr>
+  </table>
+
+  <script>
+    function addScore() {
+      let name = document.getElementById('playerName').value;
+      let score = document.getElementById('playerScore').value;
+      let table = document.getElementById('scoreTable');
+      
+      if (name === "" || score === "") return;
+
+      let row = table.insertRow();
+      row.innerHTML = "<td>-</td><td>" + name + "</td><td>" + score + "</td>";
+      
+      document.getElementById('playerName').value = "";
+      document.getElementById('playerScore').value = "";
+    }
+  </script>
+
+</body>
+</html>

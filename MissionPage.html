@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+*   {
+    box-sizing:border-box;
+}
+header{
+    background-color:#2e405f;
+    padding:10px;
+    TEXT-align:center;
+}
+.carousel{
+    overflow:hidden;
+}
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 300px;
+  width:max-content;
+  animation: scroll 10s linear infinite; 
+}
+.row1 {
+  display: flex;
+  justify-content: center;
+  gap: 300px;
+  width:max-content;
+}
+.row:has(.box:hover){
+    animation-play-state: paused;
+}
+body{
+    background-color: #172030;
+    color: rgb(250, 247, 247);
+}
+.box {
+  flex-shrink: 0;
+  width: 300px;
+  height: 220px;
+  border: 3px solid black;
+  border-radius: 20px;
+  padding:20px;
+  background-color: #223047;
+  transition:transform 0.2s,background-color 0.2;
+}
+.boxChanged {
+  flex-shrink: 0;
+  width: 300px;
+  height: 220px;
+  border: 3px solid black;
+  border-radius: 20px;
+  padding:20px;
+  background-color: #223047;
+  transition:transform 0.2s,background-color 0.2;
+}
+.box:hover{
+    background-color: #2a3b58;
+    transform:scale(1.05);
+}
+@keyframes scroll{
+    from{transform: translateX(0);}
+    to {transform: translateX(calc(-3* (200px + 300px)));}
+}
+</style>
+<header>
+    <h1>
+        Missions
+    </h1>
+</header>
+<body>
+    <h2>CRACK TEXT HERE CRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERE</h2>
+    <div class="carousel">
+        <div class="row">
+            <div class="box">CRACK TEXT HERE</div>
+            <div class="box">CRACK TEXT HERE</div> 
+            <div class="box">CRACK TEXT HERE</div>
+            
+            <div class="box">CRACK TEXT HERE</div>
+            <div class="box">CRACK TEXT HERE</div> 
+            <div class="box">CRACK TEXT HERE</div> 
+        </div>
+    </div>
+    <h2>CRACK TEXT HERE CRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERECRACK TEXT HERE</h2>
+    <div class = row1>
+        <div class="box">
+            <p>CRACK TEXT HERE CRACK TEXT HERECRACK TEXT HERE CRACK TEXT HERE CRACK TEXT HERECRACK TEXT HERE CRACK TEXT HERE CRACK TEXT HERECRACK TEXT HERE</p>
+        </div>
+    </div>
+</body>
+</html>
