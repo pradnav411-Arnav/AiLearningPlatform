@@ -27,6 +27,16 @@
   <p id="status" style="font-weight: bold;"></p>
 
   <script>
+
+
+  async function signInWithEmail() {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: 'valid.email@supabase.io',
+      password: 'example-password',
+    })
+  }
+
+    //Old SignUp
     function createAccount() {
       let u = document.getElementById('user').value;
       let p = document.getElementById('pass').value;
