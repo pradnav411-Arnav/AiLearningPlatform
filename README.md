@@ -6,4 +6,4 @@ A project made by 3 ppl for tsa
  Justin Home Page
  Nit Scoreboard page
 
- https://prod.liveshare.vsengsaas.visualstudio.com/join?F5E5BC94210BC8F1D8DAB79624A7E32E28BC
+https://prod.liveshare.vsengsaas.visualstudio.com/join?C1D4A0BA1E5361BD5F9FBEA93F06FA371D71
