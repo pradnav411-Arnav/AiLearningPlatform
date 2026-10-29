@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Page</title>
+
+    <!-- JavaScript files -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+    <script src="./scripts/supabaseClient.js" defer></script>
+    <script src="./scripts/loginAndSignUp.js" defer></script>
+</head>
+<body>
+    <h1>Sign Up</h1>
+    <form id="signUpForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Sign Up</button>
+    </form>
+
+    <p>Already have an account? <a href="login.html">Log in</a>.</p>
+    <p id="error-message" style="color: red;"></p>
+    <p id="success-message" style="color: green;"></p>
+    <p id="dashboard-link" style="display: none;"><a href="dashboard.html">Go to Dashboard</a></p>
+</body>
+</html>
