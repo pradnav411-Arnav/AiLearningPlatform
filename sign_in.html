@@ -21,8 +21,7 @@
   <input type="text" id="user" placeholder="Username"><br><br>
   <input type="password" id="pass" placeholder="Password"><br><br>
   
-  <button onclick="createAccount()">Create Account</button>
-  <button onclick="signIn()">Sign In</button>
+  <button onclick="signInWithEmail()">Sign In</button>
   
   <p id="status" style="font-weight: bold;"></p>
 
@@ -31,32 +30,32 @@
 
   async function signInWithEmail() {
     const { data, error } = await supabase.auth.signInWithPassword({
-      email: 'valid.email@supabase.io',
-      password: 'example-password',
+      email: document.getElementById('user').value,
+      password: document.getElementById('pass').value,
     })
   }
 
     //Old SignUp
-    function createAccount() {
-      let u = document.getElementById('user').value;
-      let p = document.getElementById('pass').value;
-      if (!u || !p) return alert("Enter username and password");
+    // function createAccount() {
+    //   let u = document.getElementById('user').value;
+    //   let p = document.getElementById('pass').value;
+    //   if (!u || !p) return alert("Enter username and password");
       
-      localStorage.setItem(u, p);
-      alert("Account created successfully!");
-    }
+    //   localStorage.setItem(u, p);
+    //   alert("Account created successfully!");
+    // }
 
-    function signIn() {
-      let u = document.getElementById('user').value;
-      let p = document.getElementById('pass').value;
+    // function signIn() {
+    //   let u = document.getElementById('user').value;
+    //   let p = document.getElementById('pass').value;
       
-      if (localStorage.getItem(u) === p) {
-        document.getElementById('status').innerText = "Logged in as: " + u;
-        localStorage.setItem('currentUser', u); // Save login state for other pages
-      } else {
-        alert("Invalid username or password.");
-      }
-    }
+    //   if (localStorage.getItem(u) === p) {
+    //     document.getElementById('status').innerText = "Logged in as: " + u;
+    //     localStorage.setItem('currentUser', u); // Save login state for other pages
+    //   } else {
+    //     alert("Invalid username or password.");
+    //   }
+    // }
   </script>
 
 </body>
