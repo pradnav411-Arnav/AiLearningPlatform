@@ -1,11 +1,10 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Learning Hub</title>
     <link rel="stylesheet" href="./style2.css">
 </head>
 <body>
@@ -24,22 +23,21 @@
         </nav>
     </header>
 
-    <svg class="scroll-line" viewBox="0 0 300 1000" preserveAspectRatio="none">
-        <path d="
-            M150 0
-            C150 100 55 130 55 250
-            C55 370 245 380 245 500
-            C245 620 55 630 55 750
-            C55 870 150 900 150 1000
-        "/>
-    </svg>
+    <main class="timeline-space">
+        <svg class="scroll-line" viewBox="0 0 300 1000" preserveAspectRatio="none">
+            <path d="
+                M150 0
+                C20 100 20 200 55 250
+                C90 300 210 400 245 500
+                C280 600 90 700 55 750
+                C20 800 100 900 150 1000
+            "/>
+        </svg>
 
-    <a href="Page1.html" class="timeline-point point1" data-label="Lesson 1" aria-label="Lesson 1">★</a>
-    <a href="Page2.html" class="timeline-point point2" data-label="Lesson 2" aria-label="Lesson 2">★</a>
-    <a href="Page2.html" class="timeline-point point3" data-label="Lesson 3" aria-label="Lesson 3">★</a>
-    <a href="FinalPage.html" class="timeline-point endpoint" data-label="Finish" aria-label="Finish">★</a>
-
-    <div class="timeline-space"></div>
+        <a href="Page1.html" class="timeline-point point1">★</a>
+        <a href="Page2.html" class="timeline-point point2">★</a>
+        <a href="Page2.html" class="timeline-point point3">★</a>
+        <a href="FinalPage.html" class="timeline-point endpoint">★</a>
+    </main>
 </body>
 </html>
-```
