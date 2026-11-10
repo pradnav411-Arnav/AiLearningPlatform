@@ -1,15 +1,47 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learning Hub</title>
+    <link rel="stylesheet" href="./style2.css">
 </head>
 <body>
-    <div style="text-align: center; margin-top: 50px;">
-    <h1>Learning Hub</h1>
-    <h2>Coming Soon!!!</h2>
-    <button class="portal-btn" onclick="window.location.href='index.html'">Back to Home</button>
-    </div>
+    <header>
+        <nav>
+            <ul class="topnav">
+                <li><img src="./photos/logo.png" alt="Logo"></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="MissionPage.html">Mission Page</a></li>
+                <li><a href="LearningHub.html">Learning Hub</a></li>
+                <li><a href="Scoreboard.html">Scoreboard</a></li>
+                <li><a href="References.html">References</a></li>
+                <li class="right_nav"><a href="./get_started.html">Get Started</a></li>
+                <li class="right_nav"><a class="sign_in" href="./sign_in.html">Sign In</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <svg class="scroll-line" viewBox="0 0 300 5000" preserveAspectRatio="none">
+        <path d="
+            M150 0
+            C10 300 10 500 150 650
+            C290 800 290 1100 150 1300
+            C10 1500 10 1750 150 1950
+            C290 2150 290 2400 150 2600
+            C10 2800 10 3050 150 3250
+            C290 3450 290 3700 150 3900
+            C10 4100 10 4350 150 4550
+            C290 4700 250 4850 150 5000
+        "/>
+    </svg>
+
+    <a href="Page1.html" class="timeline-point point1" data-label="Lesson 1">★</a>
+    <a href="Page2.html" class="timeline-point point2" data-label="Lesson 2">★</a>
+    <a href="Page2.html" class="timeline-point point3" data-label="Lesson 3">★</a>
+    <div class="timeline-point endpoint" data-label="Finish">★</div>
+
 </body>
 </html>
