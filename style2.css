@@ -44,10 +44,10 @@ ul.topnav li a {
     padding: 14px 16px;
     text-decoration: none;
 
-    /* Rounded background */
+   
     border-radius: 12px;
 
-    /* Smooth animations */
+
     transition:
         background-color 0.25s ease,
         color 0.25s ease,
@@ -56,16 +56,15 @@ ul.topnav li a {
 }
 
 ul.topnav li a:hover {
-    /* Transparent light blue background */
     background-color: rgba(255, 255, 255, 0.3);
 
-    /* Text changes color */
+   
     color: #075985;
 
-    /* Slight upward movement */
+
     transform: translateY(-2px);
 
-    /* Subtle shadow */
+ 
     box-shadow: 0 4px 12px rgba(0, 80, 130, 0.1);
 
     text-decoration: none;
@@ -216,7 +215,6 @@ timeline-point {
     transition: transform 0.25s ease;
 }
 
-/* TOKEN LABELS */
 .timeline-point::after {
     content: attr(data-label);
     position: absolute;
