@@ -1,8 +1,7 @@
-
 body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
-    min-height: 500vh;
+    min-height: 600vh;
     padding: 0;
     border: none;
     background-color: #f1eee3;
@@ -137,8 +136,8 @@ div.learning {
     stroke: #00aaff;
     stroke-width: 5;
     stroke-linecap: round;
-    stroke-dasharray: 6500;
-    stroke-dashoffset: 6500;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
     animation: draw-line linear forwards;
     animation-timeline: scroll(root);
 }
@@ -151,18 +150,16 @@ div.learning {
 
 .timeline-point {
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 60px;
+    box-sizing: border-box;
+    width: 64px;
+    height: 64px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
     text-decoration: none;
-    font-size: 30px;
+    font-size: 34px;
     color: white;
-
     background: radial-gradient(
         circle,
         #05c8f5 0%,
@@ -173,19 +170,12 @@ div.learning {
         #05c8f5 79%,
         #247ab6 80%
     );
-
     border: 5px solid #247ab6;
-
     box-shadow:
         0 5px 0 #155b91,
         0 8px 15px rgba(0, 0, 0, 0.2);
-
-    opacity: 0;
-    pointer-events: auto;
-    animation: appear linear both;
-    animation-timeline: scroll(root);
     z-index: 10;
-    transition: filter 0.25s ease;
+    transition: filter 0.25s ease, scale 0.25s ease;
 }
 
 .timeline-point::after {
@@ -201,36 +191,25 @@ div.learning {
 
 .timeline-point:hover {
     filter: brightness(1.15);
+    scale: 1.1;
 }
 
 .point1 {
-    top: calc(80px + 100vh);
-    animation-range: 18% 22%;
+    left: calc(50% - 152px);
+    top: calc(80px + 60vh - 32px);
 }
 
 .point2 {
-    top: calc(80px + 220vh);
-    animation-range: 40% 44%;
+    left: calc(50% + 88px);
+    top: calc(80px + 180vh - 32px);
 }
 
 .point3 {
-    top: calc(80px + 340vh);
-    animation-range: 63% 67%;
+    left: calc(50% - 152px);
+    top: calc(80px + 300vh - 32px);
 }
 
 .endpoint {
-    top: calc(80px + 460vh);
-    animation-range: 85% 89%;
-}
-
-@keyframes appear {
-    from {
-        opacity: 0;
-        scale: 0.3;
-    }
-
-    to {
-        opacity: 1;
-        scale: 1;
-    }
+    left: calc(50% + 88px);
+    top: calc(80px + 420vh - 32px);
 }
