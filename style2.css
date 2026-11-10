@@ -171,23 +171,70 @@ div.learning {
         stroke-dashoffset: 0;
     }
 }
-.timeline-point {
+timeline-point {
     position: fixed;
     left: 50%;
     transform: translateX(-50%);
-    background: #3c92c0;
-    color: white;
+
+    width: 85px;
+    height: 85px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
     text-decoration: none;
-    padding: 12px 22px;
-    border-radius: 30px;
-    font-weight: bold;
-    border: 2px solid white;
+
+    font-size: 42px;
+    color: white;
+
+    background:
+        radial-gradient(circle,
+            #05c8f5 0%,
+            #05c8f5 53%,
+            #247ab6 54%,
+            #247ab6 68%,
+            #05c8f5 69%,
+            #05c8f5 79%,
+            #247ab6 80%);
+
+    border: 7px solid #247ab6;
+
+    box-shadow:
+        0 5px 0 #155b91,
+        0 8px 15px rgba(0,0,0,0.2);
+
     opacity: 0;
     pointer-events: none;
+
     animation: appear linear both;
     animation-timeline: scroll(root);
+
     z-index: 10;
+
+    transition: transform 0.25s ease;
 }
+
+/* TOKEN LABELS */
+.timeline-point::after {
+    content: attr(data-label);
+    position: absolute;
+    top: 100%;
+    margin-top: 12px;
+
+    font-size: 15px;
+    font-weight: bold;
+    color: #247ab6;
+    white-space: nowrap;
+}
+
+
+.timeline-point:hover {
+    filter: brightness(1.15);
+}
+
+
 .point1 {
     top: 25%;
     animation-range: 15% 20%;
@@ -205,13 +252,15 @@ div.learning {
 
 .endpoint {
     top: 90%;
-    background-color: #00baff;
+    background-color: #116a9f;
     animation-range: 85% 90%;
 }
+
+
 @keyframes appear {
     from {
         opacity: 0;
-        scale: 0.5;
+        scale: 0.3;
     }
 
     to {
