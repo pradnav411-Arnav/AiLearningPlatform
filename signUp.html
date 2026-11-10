@@ -1,30 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up Page</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="./style.css">
 
-    <!-- JavaScript files -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
-    <script src="./scripts/supabaseClient.js" defer></script>
-    <script src="./scripts/loginAndSignUp.js" defer></script>
+  <!-- JavaScript Files -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="./scripts/supabaseClient.js" defer></script>
+  <script src="./scripts/loginAndSignUp.js" defer></script>
 </head>
 <body>
-    <h1>Sign Up</h1>
-    <form id="signUpForm">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <button type="submit">Sign Up</button>
-    </form>
 
-    <p>Already have an account? <a href="login.html">Log in</a>.</p>
-    <p id="error-message" style="color: red;"></p>
-    <p id="success-message" style="color: green;"></p>
-    <p id="dashboard-link" style="display: none;"><a href="dashboard.html">Go to Dashboard</a></p>
+  <header>
+    <ul class="topnav">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="MissionPage.html">Mission Page</a></li>
+      <li><a href="Scoreboard.html">Scoreboard</a></li>
+      <li class="right_nav"><a href="sign_in.html" class="sign_in">Sign In</a></li>
+    </ul>
+  </header>
+
+  <div class="row" style="margin-top: 40px;">
+    <div class="header-content" style="height: auto; padding: 30px; width: 600px; margin: 0 auto;">
+      <h2 style="color: white; margin-top: 0;">Create Account</h2>
+      
+      <form id="signUpForm">
+        <input type="text" id="username" name="username" class="portal-input" placeholder="Username" required style="width: 60%; margin-bottom: 15px;"><br>
+        <input type="email" id="email" name="email" class="portal-input" placeholder="Email" required style="width: 60%; margin-bottom: 15px;"><br>
+        <input type="password" id="password" name="password" class="portal-input" placeholder="Create Password" required style="width: 60%; margin-bottom: 25px;"><br>
+        <input type="password" id="password" name="password" class="portal-input" placeholder="Retype Password" required style="width: 60%; margin-bottom: 25px;"><br>
+        
+        <button type="submit" class="portal-btn">Sign Up</button>
+      </form>
+
+      <p style="color: white; margin-top: 20px;">
+        Already have an account? <a href="sign_in.html" style="color: #86d8f6; font-weight: bold;">Log in</a>
+      </p>
+
+      <p id="error-message" style="color: #ffb3b3; font-weight: bold;"></p>
+      <p id="success-message" style="color: #b3ffb3; font-weight: bold;"></p>
+      <p id="dashboard-link" style="display: none;"><a href="dashboard.html" style="color: white; font-weight: bold;">Go to Dashboard</a></p>
+    </div>
+  </div>
+
 </body>
 </html>

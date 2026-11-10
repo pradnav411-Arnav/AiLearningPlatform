@@ -2,57 +2,48 @@
 <html>
 <head>
   <title>Sign In</title>
-  <style>
-    body { text-align: center; }
-  </style>
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 
-  <h1>AI Learning Portal</h1>
-  <p>
-    <a href="HomePage.html">Home</a> | 
-    <a href="MissionPage.html">Mission Page</a> | 
-    <a href="Scoreboard.html">Scoreboard</a> |
-    <a href="Login.html">Sign In</a>
-  </p>
-  <hr>
+  <header>
+    <ul class="topnav">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="MissionPage.html">Mission Page</a></li>
+      <li><a href="Scoreboard.html">Scoreboard</a></li>
+      <li class="right_nav"><a href="sign_in.html" class="sign_in">Sign In</a></li>
+    </ul>
+  </header>
 
-  <h2>Account Sign In</h2>
-  <input type="text" id="user" placeholder="Username"><br><br>
-  <input type="password" id="pass" placeholder="Password"><br><br>
-  
-  <button onclick="createAccount()">Create Account</button>
-  <button onclick="signIn()">Sign In</button>
-  
-  <p id="status" style="font-weight: bold;"></p>
+  <div class="row" style="margin-top: 40px;">
+    <div class="header-content" style="height: auto; padding: 30px; width: 600px; margin: 0 auto;">
+      <h2 style="color: white; margin-top: 0;">Account Sign In</h2>
+      
+      <input type="text" id="user" class="portal-input" placeholder="Username" style="width: 60%;"><br><br>
+      <input type="password" id="pass" class="portal-input" placeholder="Password" style="width: 60%;"><br><br>
+      
+      <button class="portal-btn" onclick="signIn()">Sign In</button><br><br>
+      <button class="portal-btn" onclick="window.location.href='signUp.html'">Create Account Instead</button><br>
+      
+      <p id="status" style="font-weight: bold; color: white; margin-top: 15px;"></p>
+    </div>
+  </div>
 
   <script>
-
-
-  async function signInWithEmail() {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: 'valid.email@supabase.io',
-      password: 'example-password',
-    })
-  }
-
-    //Old SignUp
-    function createAccount() {
-      let u = document.getElementById('user').value;
-      let p = document.getElementById('pass').value;
-      if (!u || !p) return alert("Enter username and password");
-      
-      localStorage.setItem(u, p);
-      alert("Account created successfully!");
+    function getUsers() {
+      return JSON.parse(localStorage.getItem('portal_users')) || [];
     }
 
     function signIn() {
       let u = document.getElementById('user').value;
       let p = document.getElementById('pass').value;
-      
-      if (localStorage.getItem(u) === p) {
+      let users = getUsers();
+      let valid = users.find(user => user.username === u && user.password === p);
+
+      if (valid) {
+        localStorage.setItem('currentUser', u);
         document.getElementById('status').innerText = "Logged in as: " + u;
-        localStorage.setItem('currentUser', u); // Save login state for other pages
+        alert("Signed in successfully!");
       } else {
         alert("Invalid username or password.");
       }

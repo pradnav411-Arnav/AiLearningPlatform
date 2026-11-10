@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Home</title>
     
     <link rel="stylesheet" href="./style.css">
 </head>
@@ -17,27 +18,65 @@
                 <li><a href="LearningHub.html">Learning Hub</a></li>
                 <li><a href="Scoreboard.html">Scoreboard</a></li>
                 <li><a href="References.html">References</a></li>
-                <li class="right_nav"><a href="./get_started.html">Get Started</a></li>
+                <li><a href="Progression.html">Progressions</a></li>
+                <li class="right_nav"><a href="./signUp.html">Get Started</a></li>
                 <li class="right_nav"><a class="sign_in" href="./sign_in.html">Sign In</a></li>
                 
             </ul>
         </nav>
         <div class="row">
             <div class="header-content">
-                <h1>Welcome to the AI Learning Platform</h1>
-                <p>Explore the world of Artificial Intelligence and enhance your knowledge.</p>
+                <div class="header-subborder">   
+                    <h1>Welcome to the AI Learning Platform</h1>
+                    <p>Explore the world of Artificial Intelligence and enhance your knowledge.</p>
+                </div>
             </div>
         </div>
-
     </header>
-    <h1>welcome</h1>
-    <h2>Learning</h2>
-    <div class="learning">This is an educational website which helps aid in learning AI usage by showing the benefits and the use cases:</div>
-    <h5>Ethical Use Cases:</h5>
+    <div class="learning-container">
+        <div class="learning-item">
+            <div class="learning">
+                <img src="./photos/codingIDE.svg" alt="Learning">
+            </div>
+            <h3>Problem Solving</h3>
+        </div>
+        <div class="learning-item">
+            <div class="learning">
+                <img src="./photos/webSchoolAI.svg" alt="Learning">
+            </div>
+            <h3>Foster Knowledge</h3>
+        </div>
+        <div class="learning-item">
+            <div class="learning">
+                <img src="./photos/clipboard.svg" alt="Learning" width="100" height="100">
+                </div>
+                <h3>Time Management</h3>
+            </div>
+            
+        <div class="learning-item">
+            <div class="learning">
+                <img src="./photos/chatbot.svg" alt="Learning" width="100" height="100">
+            </div>
+            <h3>Study Partner</h3>
+        </div>
+    </div>
+
+    <div class="chatty">
+        <img src="./photos/robbydone_export.gif" alt="Chatty" class="chatty-img">
+    </div>
+
+    </div>
+
+    <h2 class="welcome-message">Head over to the learning hub to get started!</h2>
+    <h3 class="welcome-submessage">Start your journey today! (sign in to save progress!)</h3>
+    <div class="directlink">
+    <button class="portal-btn" onclick="window.location.href='LearningHub.html'">Go to Learning Hub</button>
+    </div>
+    <!-- <h5>Ethical Use Cases:</h5>
     <ul>
         <li>Using AI to Further Knowledge by asking Questions</li>
         <li>Translate Languages to better understand People</li>
-        <li>Help with Organizing Plans and Schedules</li>
+        <li>Help with Organizing Plans and Schedules</li> -->
         
     </ui>
     

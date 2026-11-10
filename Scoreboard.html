@@ -1,63 +1,68 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./scripts/supabaseClient.js"></script>
+  <script>
+  async function loadScoreboard() {
+    let { data: users, error } = await window.supabaseClient
+      .from('profiles')
+      .select('*')
+      .order('score', { ascending: false });
+
+    if (error) {
+      console.error('Error fetching scores:', error);
+      return;
+    }
+
+    let table = document.getElementById('scoreTable');
+    users.forEach((u, index) => {
+      let row = table.insertRow();
+      row.innerHTML = `<td>${index + 1}</td><td>${u.username}</td><td>${u.score || 0}</td>`;
+    });
+  }
+
+  window.onload = loadScoreboard;
+  </script>
   <title>Scoreboard</title>
-  <style>
-    body {
-      text-align: center;
-    }
-    table {
-      margin: 0 auto;
-      text-align: left;
-    }
-  </style>
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 
-  <h1>AI Learning Portal</h1>
-  
-  <p>
-    <a href="index.html">Home</a> | 
-    <a href="MissionPage.html">Mission Page</a> | 
-    <a href="Scoreboard.html">Scoreboard</a>
-  </p>
+  <header>
+    <ul class="topnav">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="MissionPage.html">Mission Page</a></li>
+      <li><a href="Scoreboard.html">Scoreboard</a></li>
+      <li class="right_nav"><a href="sign_in.html" class="sign_in">Sign In</a></li>
+    </ul>
+  </header>
 
-  <hr>
-
-  <h2>Student Scoreboard</h2>
-
-  <label>Student Name:</label><br>
-  <input type="text" id="playerName"><br><br>
-
-  <label>Score:</label><br>
-  <input type="number" id="playerScore"><br><br>
-
-  <button onclick="addScore()">Add Score</button>
-
-  <br><br>
-
-  <table border="1" id="scoreTable">
-    <tr>
-      <th>Rank</th>
-      <th>Student Name</th>
-      <th>Score</th>
-    </tr>
-  </table>
+  <div class="row" style="margin-top: 50px;">
+    <div class="header-content" style="height: auto; padding-bottom: 30px; width: 600px;">
+      <h2 style="color: white; margin-top: 5px;">Student Scoreboard</h2>
+      
+      <table border="1" id="scoreTable" style="margin: 0 auto; background: white; color: black; width: 90%;">
+        <tr>
+          <th>Rank</th>
+          <th>Student Name</th>
+          <th>Score</th>
+        </tr>
+      </table>
+    </div>
+  </div>
 
   <script>
-    function addScore() {
-      let name = document.getElementById('playerName').value;
-      let score = document.getElementById('playerScore').value;
-      let table = document.getElementById('scoreTable');
-      
-      if (name === "" || score === "") return;
+    window.onload = function() {
+      let users = JSON.parse(localStorage.getItem('portal_users')) || [];
+      users.sort((a, b) => (b.score || 0) - (a.score || 0));
 
-      let row = table.insertRow();
-      row.innerHTML = "<td>-</td><td>" + name + "</td><td>" + score + "</td>";
-      
-      document.getElementById('playerName').value = "";
-      document.getElementById('playerScore').value = "";
-    }
+      let table = document.getElementById('scoreTable');
+      users.forEach((u, index) => {
+        let row = table.insertRow();
+        row.innerHTML = `<td>${index + 1}</td><td>${u.username}</td><td>${u.score || 0}</td>`;
+      });
+    };
   </script>
 
 </body>
