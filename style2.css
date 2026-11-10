@@ -2,7 +2,7 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
-    min-height: 500vh;
+    min-height: 300vh;
     padding: 0;
     border: none;
     background-color: #f1eee3;
@@ -11,86 +11,86 @@ body {
 header {
     background-color: #60bef0;
     text-align: center;
-}
 
-header ul.topnav img {
-    padding-top: 10px;
-    padding-left: 10px;
-    width: 50px;
-    height: auto;
-}
+    ul.topnav img {
+        padding-top: 10px;
+        padding-left: 10px;
+        width: 50px;
+        height: auto;
+    }
 
-ul.topnav {
-    display: flex;
-    list-style-type: none;
-    margin: 0;
-    padding: 15px;
-    background-color: #88c4e4;
-    overflow: hidden;
-    border-bottom: 2px solid #31a6e4;
-}
+    ul.topnav {
+        display: flex;
+        list-style-type: none;
+        margin: 0;
+        padding: 15px;
+        background-color: #88c4e4;
+        overflow: hidden;
+        border-bottom: 2px solid #31a6e4;
+    }
 
-ul.topnav li {
-    float: left;
-}
+    ul.topnav li {
+        float: left;
+    }
 
-ul.topnav li a {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    border-radius: 12px;
-    transition:
-        background-color 0.25s ease,
-        color 0.25s ease,
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
-}
+    ul.topnav li a {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        border-radius: 12px;
+        transition:
+            background-color 0.25s ease,
+            color 0.25s ease,
+            transform 0.25s ease,
+            box-shadow 0.25s ease;
+    }
 
-ul.topnav li a:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-    color: #075985;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 80, 130, 0.1);
-    text-decoration: none;
-}
+    ul.topnav li a:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+        color: #075985;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 80, 130, 0.1);
+        text-decoration: none;
+    }
 
-li.right_nav {
-    margin-left: auto;
-}
+    li.right_nav {
+        margin-left: auto;
+    }
 
-li.right_nav + li.right_nav {
-    margin-left: 0;
-}
+    li.right_nav + li.right_nav {
+        margin-left: 0;
+    }
 
-ul.topnav li a.sign_in {
-    background-color: #116a9f;
-    color: white;
-    border: 1px solid #368abd;
-    border-radius: 9999px;
-    padding: 10px 20px;
-    margin-top: 2px;
-    margin-left: 10px;
-    margin-right: 15px;
-    font-weight: 600;
-    text-decoration: none;
-    box-shadow: 0 2px 8px rgba(0, 72, 132, 0.2);
-    transition:
-        background-color 0.25s ease,
-        color 0.25s ease,
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
-}
+    ul.topnav li a.sign_in {
+        background-color: #116a9f;
+        color: white;
+        border: 1px solid #368abd;
+        border-radius: 9999px;
+        padding: 10px 20px;
+        margin-top: 2px;
+        margin-left: 10px;
+        margin-right: 15px;
+        font-weight: 600;
+        text-decoration: none;
+        box-shadow: 0 2px 8px rgba(0, 72, 132, 0.2);
+        transition:
+            background-color 0.25s ease,
+            color 0.25s ease,
+            transform 0.25s ease,
+            box-shadow 0.25s ease;
+    }
 
-ul.topnav li a.sign_in:hover {
-    background-color: rgb(134, 216, 246);
-    color: #075985;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 17px rgba(4, 80, 140, 0.25);
-    text-decoration: none;
+    ul.topnav li a.sign_in:hover {
+        background-color: rgb(134, 216, 246);
+        color: #075985;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 17px rgba(4, 80, 140, 0.25);
+        text-decoration: none;
+    }
 }
 
 div.learning {
@@ -120,21 +120,16 @@ div.learning {
     height: 150px;
 }
 
-.timeline-space {
-    position: relative;
-    height: 250vh;
-    width: 100%;
-}
-
 .scroll-line {
     position: absolute;
-    top: 0;
+    top: 80px;
     left: 50%;
     transform: translateX(-50%);
     width: 300px;
-    height: 500vh;
+    height: 250vh;
     pointer-events: none;
     z-index: 1;
+    overflow: visible;
 }
 
 .scroll-line path {
@@ -142,19 +137,15 @@ div.learning {
     stroke: #00aaff;
     stroke-width: 5;
     stroke-linecap: round;
-    stroke-dasharray: 6500;
-    stroke-dashoffset: 6500;
+    stroke-dasharray: 2000;
+    stroke-dashoffset: 2000;
     animation: draw-line linear forwards;
     animation-timeline: scroll(root);
-    animation-range: 0% 100%;
 }
 
-@keyframes fade-line {
-    from {
-        opacity: 1;
-    }
+@keyframes draw-line {
     to {
-        opacity: 0;
+        stroke-dashoffset: 0;
     }
 }
 
@@ -162,16 +153,15 @@ div.learning {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    width: 60px;
-    height: 60px;
+    width: 64px;
+    height: 64px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
     text-decoration: none;
-    font-size: 30px;
+    font-size: 36px;
     color: white;
-
     background: radial-gradient(
         circle,
         #05c8f5 0%,
@@ -182,15 +172,12 @@ div.learning {
         #05c8f5 79%,
         #247ab6 80%
     );
-
-    border: 5px solid #247ab6;
-
+    border: 6px solid #247ab6;
     box-shadow:
         0 5px 0 #155b91,
         0 8px 15px rgba(0, 0, 0, 0.2);
-
     opacity: 0;
-    pointer-events: auto;
+    pointer-events: none;
     animation: appear linear both;
     animation-timeline: scroll(root);
     z-index: 10;
@@ -202,51 +189,49 @@ div.learning {
     position: absolute;
     top: 100%;
     margin-top: 10px;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
-    border: 3px solid white;
-    box-shadow: 0 4px 12px rgba(0, 80, 130, 0.25);
-    z-index: 10;
-    animation: fade-token linear both;
-    animation-timeline: scroll(root);
+    color: #247ab6;
+    white-space: nowrap;
 }
 
 .timeline-point:hover {
-    filter: brightness(1.15);
+    filter: brightness(1.2);
 }
 
 .point1 {
-    top: calc(80px + 100vh);
-    left: 25%;
-    animation-range: 18% 22%;
+    top: calc(80px + 62.5vh - 32px);
+    animation-range: 15% 20%;
 }
 
 .point2 {
-    top: calc(80px + 220vh);
-    left: 75%;
-    animation-range: 40% 44%;
+    top: calc(80px + 125vh - 32px);
+    animation-range: 40% 45%;
 }
 
 .point3 {
-    top: calc(80px + 340vh);
-    left: 25%;
-    animation-range: 63% 67%;
+    top: calc(80px + 187.5vh - 32px);
+    animation-range: 65% 70%;
 }
 
 .endpoint {
-    top: calc(80px + 460vh);
-    left: 75%;
-    animation-range: 85% 89%;
+    top: calc(80px + 250vh - 32px);
+    background-color: #116a9f;
+    animation-range: 85% 90%;
 }
 
 @keyframes appear {
     from {
         opacity: 0;
-        scale: 0.3;
+        scale: 0.5;
     }
 
     to {
         opacity: 1;
         scale: 1;
     }
+}
+
+.timeline-space {
+    height: 250vh;
 }
