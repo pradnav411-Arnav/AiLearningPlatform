@@ -171,54 +171,53 @@ div.learning {
         stroke-dashoffset: 0;
     }
 }
-.timeline-point{
+.timeline-point {
     position: fixed;
     left: 50%;
     transform: translateX(-50%);
-    background: #3c92c0
+    background: #3c92c0;
     color: white;
     text-decoration: none;
     padding: 12px 22px;
     border-radius: 30px;
-    font-weight:bold;
+    font-weight: bold;
     border: 2px solid white;
-    opacity:0;
+    opacity: 0;
     pointer-events: none;
     animation: appear linear both;
+    animation-timeline: scroll(root);
     z-index: 10;
 }
-
-.point1{
-    top:25%
-    animation-timeline: scroll(root);
+.point1 {
+    top: 25%;
     animation-range: 15% 20%;
 }
-.point2{
+
+.point2 {
     top: 50%;
-    animation-timeline: scroll(root);
     animation-range: 40% 45%;
 }
-.point3{
-    top:75%
-    animation-timeline: scroll(root);
+
+.point3 {
+    top: 75%;
     animation-range: 65% 70%;
 }
-.endpoint{
+
+.endpoint {
     top: 90%;
     background-color: #00baff;
-    animation-timeline: scroll(root);
     animation-range: 85% 90%;
 }
-@keyframes appear{
-    from{
-        opacity:0;
+@keyframes appear {
+    from {
+        opacity: 0;
         scale: 0.5;
     }
 
-    to{
-        opacity:1;
+    to {
+        opacity: 1;
         scale: 1;
-        pointer-events: auto;
     }
 }
+
 
