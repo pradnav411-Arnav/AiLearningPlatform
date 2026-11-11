@@ -3,6 +3,15 @@
 <head>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="./scripts/supabaseClient.js"></script>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+
+    tr:nth-child(even){
+      background-color: #f2f2f2;
+    }
+  </style>
   <script>
   async function loadScoreboard() {
     let { data: users, error } = await window.supabaseClient
