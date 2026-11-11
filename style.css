@@ -201,6 +201,10 @@ div.learning {
     transform: translateY(-5px) scale(1.05);
 }
 
+.underline {
+    text-decoration: underline;
+}
+
 .welcome-message {
     text-align: center;
     font-size: 1.5em;
