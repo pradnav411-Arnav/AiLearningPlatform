@@ -1,92 +1,287 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Missions</title>
+    <link rel="stylesheet" href="./MissionPage.css">
 </head>
-<style>
-*   {
-    box-sizing:border-box;
-}
-header{
-    background-color:#2e405f;
-    padding:10px;
-    TEXT-align:center;
-}
-.carousel{
-    overflow:hidden;
-}
-.row {
-  display: flex;
-  justify-content: center;
-  gap: 300px;
-  width:max-content;
-  animation: scroll 10s linear infinite; 
-}
-.row1 {
-  display: flex;
-  justify-content: center;
-  gap: 300px;
-  width:max-content;
-}
-.row:has(.box:hover){
-    animation-play-state: paused;
-}
-body{
-    background-color: #172030;
-    color: rgb(250, 247, 247);
-}
-.box {
-  flex-shrink: 0;
-  width: 300px;
-  height: 220px;
-  border: 3px solid black;
-  border-radius: 20px;
-  padding:20px;
-  background-color: #223047;
-  transition:transform 0.2s,background-color 0.2;
-}
-.boxChanged {
-  flex-shrink: 0;
-  width: 300px;
-  height: 220px;
-  border: 3px solid black;
-  border-radius: 20px;
-  padding:20px;
-  background-color: #223047;
-  transition:transform 0.2s,background-color 0.2;
-}
-.box:hover{
-    background-color: #2a3b58;
-    transform:scale(1.05);
-}
-@keyframes scroll{
-    from{transform: translateX(0);}
-    to {transform: translateX(calc(-3* (200px + 300px)));}
-}
-</style>
-<header>
-    <h1>
-        Missions
-    </h1>
-</header>
+
 <body>
-    <h2>place TEXT HERE place TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HERE</h2>
-    <div class="carousel">
-        <div class="row">
-            <div class="box">place TEXT HERE</div>
-            <div class="box">place TEXT HERE</div> 
-            <div class="box">place TEXT HERE</div>
-            
-            <div class="box">place TEXT HERE</div>
-            <div class="box">place TEXT HERE</div> 
-            <div class="box">place TEXT HERE</div> 
+
+    <header>
+        <nav>
+            <ul class="topnav">
+                <li><img src="./photos/logo.png" alt="Logo"></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="MissionPage.html">Mission Page</a></li>
+                <li><a href="LearningHub.html">Learning Hub</a></li>
+                <li><a href="Scoreboard.html">Scoreboard</a></li>
+                <li><a href="References.html">References</a></li>
+                <li><a href="Progression.html">Progressions</a></li>
+                <li class="right_nav">
+                    <a href="./signUp.html">Get Started</a>
+                </li>
+                <li class="right_nav">
+                    <a class="sign_in" href="./sign_in.html">Sign In</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="hero">
+            <div class="hero-content">
+                <span class="hero-tag">YOUR AI LEARNING JOURNEY</span>
+                <h1>Explore the Learning Hub.</h1>
+                <p>
+                    Discover artificial intelligence through interactive
+                    missions, hands-on challenges, and creative exploration.
+                </p>
+                <a href="LearningHub.html" class="hero-button">Explore Learning Hub <span>→</span></a>
+            </div>
+
+            <div class="hero-decoration">
+                <div class="hero-orbit orbit-one"></div>
+                <div class="hero-orbit orbit-two"></div>
+                <div class="hero-center">AI</div>
+                <span class="hero-star star-one">✦</span>
+                <span class="hero-star star-two">✧</span>
+                <span class="hero-star star-three">✦</span>
+            </div>
         </div>
-    </div>
-    <h2>place TEXT HERE place TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HEREplace TEXT HERE</h2>
-    <div class = row1>
-        <div class="box">
-            <p>place TEXT HERE place TEXT HEREplace TEXT HERE place TEXT HERE place TEXT HEREplace TEXT HERE place TEXT HERE place TEXT HEREplace TEXT HERE</p>
-        </div>
-    </div>
+    </header>
+
+    <main>
+
+        <section class="mission-section" id="missions">
+
+            <h2 class="section-heading">
+                Choose Your AI Learning Mission
+            </h2>
+
+            <div class="carousel">
+                <div class="carousel-track">
+
+                    <div class="box mission-one">
+                        <span class="xp">100 XP</span>
+                        <div class="mission-icon">🧠</div>
+                        <div class="mission-content">
+                            <h3>Mission 1: AI Fundamentals</h3>
+                            <p>
+                                Learn the core concepts of Artificial Intelligence,
+                                from machine learning to neural networks.
+                            </p>
+                            <a href="#" class="mission-button">Start Mission →</a>
+                        </div>
+                    </div>
+
+                    <div class="box mission-two">
+                        <span class="xp">150 XP</span>
+                        <div class="mission-icon">💻</div>
+                        <div class="mission-content">
+                            <h3>Mission 2: AI Tools & Techniques</h3>
+                            <p>
+                                Explore popular AI tools and techniques like
+                                prompt engineering and generative AI.
+                            </p>
+                            <a href="#" class="mission-button">Start Mission →</a>
+                        </div>
+                    </div>
+
+                    <div class="box mission-three">
+                        <span class="xp">150 XP</span>
+                        <div class="mission-icon">⚖️</div>
+                        <div class="mission-content">
+                            <h3>Mission 3: Ethical AI Usage</h3>
+                            <p>
+                                Learn about the ethics of AI, including bias,
+                                privacy, and responsible use.
+                            </p>
+                            <a href="#" class="mission-button">Start Mission →</a>
+                        </div>
+                    </div>
+
+                    <div class="box mission-one" aria-hidden="true">
+                        <span class="xp">100 XP</span>
+                        <div class="mission-icon">🧠</div>
+                        <div class="mission-content">
+                            <h3>Mission 1: AI Fundamentals</h3>
+                            <p>
+                                Learn the core concepts of Artificial Intelligence,
+                                from machine learning to neural networks.
+                            </p>
+                            <a href="#" class="mission-button">Start Mission →</a>
+                        </div>
+                    </div>
+
+                    <div class="box mission-two" aria-hidden="true">
+                        <span class="xp">150 XP</span>
+                        <div class="mission-icon">💻</div>
+                        <div class="mission-content">
+                            <h3>Mission 2: AI Tools & Techniques</h3>
+                            <p>
+                                Explore popular AI tools and techniques like
+                                prompt engineering and generative AI.
+                            </p>
+                            <a href="#" class="mission-button">Start Mission →</a>
+                        </div>
+                    </div>
+
+                    <div class="box mission-three" aria-hidden="true">
+                        <span class="xp">150 XP</span>
+                        <div class="mission-icon">⚖️</div>
+                        <div class="mission-content">
+                            <h3>Mission 3: Ethical AI Usage</h3>
+                            <p>
+                                Learn about the ethics of AI, including bias,
+                                privacy, and responsible use.
+                            </p>
+                            <a href="#" class="mission-button">Start Mission →</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+        <section class="ai-exploration">
+
+            <div class="section-divider">
+                <span>✦</span>
+            </div>
+
+            <h2 class="section-heading ai-heading">
+                Exploring the World of AI
+            </h2>
+
+            <div class="ai-description">
+
+                <figure class="ai-image-placeholder">
+                    <div class="image-placeholder-content">
+                        <span>＋</span>
+                        <h3>Image Placeholder 01</h3>
+                        <p>Add an AI-related image</p>
+                    </div>
+                </figure>
+
+                <p>
+                    Artificial intelligence is changing how we learn, work,
+                    and solve problems. It allows computers to recognize
+                    patterns, understand information, and generate creative
+                    content. Students can explore how AI works, experiment
+                    with different tools, and discover how it can help solve
+                    real-world problems. From virtual assistants to image
+                    generators, AI is becoming an important part of everyday
+                    life. Learning about artificial intelligence also means
+                    understanding its limitations, recognizing potential
+                    risks, and using it responsibly. Through these missions,
+                    you will develop the skills needed to become a more
+                    informed and responsible technology user. As you continue
+                    exploring this field, you will discover how AI can be used
+                    to create new ideas, improve technology, and make a
+                    positive impact on the world around you.
+                </p>
+
+            </div>
+
+            <div class="star-divider">
+                <span>✦</span>
+            </div>
+
+            <div class="ai-description ai-description-left">
+
+                <figure class="ai-image-placeholder">
+                    <div class="image-placeholder-content">
+                        <span>＋</span>
+                        <h3>Image Placeholder 02</h3>
+                        <p>Add an AI-related image</p>
+                    </div>
+                </figure>
+
+                <p>
+                    Artificial intelligence continues to grow and create new
+                    opportunities across many different fields. In education,
+                    AI can help students understand difficult topics, practice
+                    new skills, and explore ideas in creative ways. In healthcare,
+                    it can assist professionals with analyzing information and
+                    improving patient care. Businesses also use AI to organize
+                    data, automate tasks, and make better decisions. However,
+                    it is important to remember that AI is a tool, not a replacement
+                    for human thinking. By learning how to use it effectively,
+                    students can prepare themselves for a future where technology
+                    and human creativity work together.
+                </p>
+
+            </div>
+
+            <div class="star-divider">
+                <span>✦</span>
+            </div>
+
+            <div class="ai-description">
+
+                <figure class="ai-image-placeholder">
+                    <div class="image-placeholder-content">
+                        <span>＋</span>
+                        <h3>Image Placeholder 03</h3>
+                        <p>Add an AI-related image</p>
+                    </div>
+                </figure>
+
+                <p>
+                    One of the most exciting parts of artificial intelligence
+                    is machine learning. Machine learning allows computers to
+                    learn patterns from examples and use those patterns to
+                    make predictions. It is used in recommendation systems,
+                    voice recognition, image classification, and many other
+                    technologies that people interact with every day. By
+                    understanding how these systems learn, students can
+                    better understand the technology behind the applications
+                    they use. Experimenting with simple AI projects can also
+                    help build problem-solving skills and introduce important
+                    programming concepts.
+                </p>
+
+            </div>
+
+            <div class="star-divider">
+                <span>✦</span>
+            </div>
+
+            <div class="ai-description ai-description-left">
+
+                <figure class="ai-image-placeholder">
+                    <div class="image-placeholder-content">
+                        <span>＋</span>
+                        <h3>Image Placeholder 04</h3>
+                        <p>Add an AI-related image</p>
+                    </div>
+                </figure>
+
+                <p>
+                    As artificial intelligence becomes more advanced,
+                    responsible use becomes increasingly important. AI
+                    systems can sometimes produce inaccurate information,
+                    reflect biases in their training data, or raise concerns
+                    about privacy. Learning to question AI-generated results
+                    and verify information is an important skill. Students
+                    should understand that human judgment, creativity, and
+                    critical thinking remain essential. By combining these
+                    skills with knowledge of AI, the next generation can
+                    help shape technology that benefits everyone.
+                </p>
+
+            </div>
+
+            <div class="section-divider closing-divider">
+                <span>✦</span>
+            </div>
+
+        </section>
+
+    </main>
+
 </body>
 </html>
