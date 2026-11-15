@@ -6,10 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
+
+    <script src="./scripts/script.js" defer></script>
+    <script src="./scripts/chat.js" defer></script>
 </head>
 <body>
-    <header>
+    <div class="grid-base"></div>
+    <div class="grid-float"></div>
+    <header class="home-header">
         <nav>
             <ul class="topnav">
                 <li><img src="./photos/logo.png" alt="Logo"></li>
@@ -27,7 +35,7 @@
         <div class="row">
             <div class="header-content">
                 <div class="header-subborder">   
-                    <h1>Welcome to the AI Learning Platform</h1>
+                    <h1>Welcome to<br> AI Learning Platform</h1>
                     <p>Explore the world of <span class="underline">Artificial Intelligence</span> and enhance your knowledge.</p>
                 </div>
             </div>
@@ -61,12 +69,6 @@
         </div>
     </div>
 
-    <div class="chatty">
-        <img src="./photos/robbydone_export.gif" alt="Chatty" class="chatty-img">
-    </div>
-
-    </div>
-
     <h2 class="welcome-message">Head over to the learning hub to get started!</h2>
     <h3 class="welcome-submessage">Start your journey today! (sign in to save progress!)</h3>
     <div class="directlink">
@@ -76,11 +78,39 @@
     <ul>
         <li>Using AI to Further Knowledge by asking Questions</li>
         <li>Translate Languages to better understand People</li>
-        <li>Help with Organizing Plans and Schedules</li> -->
+        <li>Help with Organizing Plans and Schedules</li>
         
-    </ui>
+    </ul> -->
+
+
+    <div class="chat-widget">
+        <section id="chat-box" hidden>
+            <div class="chat-header">
+                <div>
+                    <h2 id="chat-title">Chat with Chatty</h2>
+                    <p>Your learning companion</p>
+                </div>
+                <button id="chat-close" type="button">&times;</button>
+            </div>
+
+            <div id="chat-messages">
+                <p class="bot-message">Hi! I'm Chatty. What would you like to learn?</p>
+            </div>
+
+            <form id="chat-form">
+                <label class="visually-hidden" for="chat-input">Message Chatty</label>
+                <input id="chat-input" name="message" type="text" placeholder="Ask something..." autocomplete="off" required>
+                <button type="submit">➤</button>
+            </form>
+        </section>
+
+        <button id="chat-toggle" type="button">
+            <img src="./photos/robbydone_export.gif" alt="" class="chatty-img" width="150">
+        </button>
+    </div>
+
     
-    
+    <!-- <img class="cursor" src="./photos/cursor.png" alt="Custom Cursor"> -->
     
 </body>
 </html>

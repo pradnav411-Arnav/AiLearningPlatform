@@ -1,12 +1,98 @@
+@font-face {
+    font-family: 'Talina';
+    src: url('./fonts/Talina.otf') format('truetype');
+}
+
+/* html {
+    scroll-behavior: smooth;
+    background-color: var(--page-background);
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+} */
+
 body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
+    min-height: 100vh;
     border: none;
     background-color: #f1eee3;
-
+    position: relative;
+    isolation: isolate;
 }
 
+body {
+    /* padding: 20px; */
+    font-family: "Nunito", Arial, sans-serif;
+    background-color: rgb(250, 252, 236);
+    /* background-image:
+        linear-gradient(rgba(81,159,168,0.13) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(81,159,168,0.13) 1px, transparent 1px);
+    background-size: 35px 35px; */
+    color: #333;
+    margin: 0 auto;
+    opacity: 0;
+    animation: fadeInBody 1s forwards;
+    /* cursor: none; Hide the default cursor */
+}
+
+.grid-base, .grid-float {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none; /* Lets clicks pass through to page content */
+    background-image:
+      linear-gradient(to right, rgba(81, 159, 168, 0.18) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(81,159,168,0.18) 1px, transparent 1px);
+    background-size: 35px 35px;
+
+  }
+
+.grid-float {
+     background-image:
+      linear-gradient(to right, rgba(81,159,168,0.18) 2px, transparent 2.5px),
+      linear-gradient(to bottom, rgba(81,159,168,0.18) 2px, transparent 2.5px);
+    /* Spotlight mask that follows --x and --y */
+    mask-image: radial-gradient(
+      220px circle at var(--x, -500px) var(--y, -500px),
+      black 0%,
+      transparent 100%
+    );
+  }
+
+/* Custom cursor */
+/* .cursor {
+    position: fixed;
+    width: 30px;
+    height: 30px;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease-out;
+    z-index: 9999;
+} */
+
+h1 {
+    font-size: 2.5em;
+}
+
+p {
+    font-size: 1.2em;
+    line-height: 1.6;
+}
+h1, h2, h3, h4, h5, h6 {
+    letter-spacing: 0.55px;
+    font-family: 'Talina', Arial, sans-serif;
+    color: #333;
+}
+
+@keyframes fadeInBody {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
 header{
     background-image: url('./photos/headerBg.svg');
     background-repeat: no-repeat; 
@@ -151,6 +237,7 @@ div.learning {
     padding: 50px;
     margin: 20px;
     border: 3px solid #73AD21;
+    border-radius: 20px;
 }
 
 .row {
@@ -160,7 +247,7 @@ div.learning {
     width: 100%;
     box-sizing: border-box;
 }
-.header-content {
+/* .header-content {
     flex-shrink: 0;
     box-sizing: border-box;
     border-radius: 25px;
@@ -168,7 +255,6 @@ div.learning {
     margin: 20px;
     padding: 20px;
     width: 700px;
-    height: 200px;
 }
 
 .header-subborder {
@@ -179,7 +265,7 @@ div.learning {
     padding: 20px;
     width: 100%;
     height: 100%;
-}
+} */
 
 .chatty {
     position: fixed;
@@ -253,4 +339,260 @@ div.learning {
   color: #075985;
   transform: translateY(-2px);
   box-shadow: 0 6px 17px rgba(4, 80, 140, 0.25);
+}
+
+
+/* Hide default cursor everywhere */
+/* html, body, a, button, input, select, textarea {
+    cursor: none !important;
+} */
+
+/* Connect navbar and header */
+header {
+    /* border: 8px solid #171717; */
+    /* border-radius: 28px; */
+    overflow: hidden;
+}
+
+/* Integrated navbar */
+header ul.topnav {
+    /* background-color: rgba(250, 252, 236, 0.95); */
+     background-color: transparent;
+    border-bottom: none;
+}
+
+/* Navbar text */
+header ul.topnav li a:not(.sign_in) {
+    color: #333;
+}
+
+/* One continuous background keeps both greens seamless through the slime edge. */
+.home-header {
+    --slime-depth: clamp(60px, 7vw, 100px);
+    /* slime locally (Chrome) */
+    --slime-edge: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201440%20100%22%20preserveAspectRatio%3D%22none%22%3E%20%3Cpath%20fill%3D%22%23000%22%20d%3D%22M0%200H1440V8%20C1418%208%201416%2025%201408%2046%20C1400%2068%201384%2082%201363%2082%20C1336%2082%201328%2064%201328%2044%20C1328%2025%201314%2010%201295%2010%20C1274%2010%201260%2024%201260%2043%20C1260%2073%201244%2096%201216%2096%20C1188%2096%201172%2076%201172%2052%20C1172%2026%201154%206%201128%206%20C1100%206%201080%2020%201080%2040%20C1080%2059%201068%2069%201052%2069%20C1036%2069%201025%2057%201025%2040%20C1025%2018%201008%208%20986%208%20C958%208%20944%2026%20940%2048%20C936%2073%20919%2086%20894%2086%20C866%2086%20850%2069%20850%2048%20C850%2024%20834%2010%20812%2010%20C786%2010%20774%2026%20774%2042%20C774%2056%20764%2065%20750%2065%20C734%2065%20724%2054%20724%2039%20C724%2017%20710%205%20688%205%20C659%205%20644%2024%20642%2051%20C640%2079%20623%2098%20596%2098%20C566%2098%20550%2078%20550%2053%20C550%2027%20535%209%20511%209%20C488%209%20474%2023%20474%2043%20C474%2059%20464%2071%20448%2071%20C432%2071%20422%2059%20422%2042%20C422%2020%20408%208%20386%208%20C361%208%20346%2025%20344%2048%20C342%2077%20323%2092%20297%2092%20C271%2092%20254%2074%20254%2051%20C254%2026%20238%208%20214%208%20C190%208%20176%2022%20176%2039%20C176%2057%20164%2067%20149%2067%20C132%2067%20122%2054%20122%2038%20C122%2018%20108%205%2086%205%20C64%205%2053%2019%2051%2036%20C49%2056%2039%2070%2024%2070%20C9%2070%200%2054%200%2032Z%22%2F%3E%20%3C%2Fsvg%3E");
+    position: relative;
+    isolation: isolate;
+    background: none;
+    padding-bottom: var(--slime-depth);
+}
+
+.home-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: url('./photos/headerBg.svg') center / cover no-repeat;
+    /* Overlap the masks slightly to avoid a hairline at the join. */
+    -webkit-mask-image: linear-gradient(#000, #000), var(--slime-edge);
+    -webkit-mask-size: 100% calc(100% - var(--slime-depth) + 1px), 100% var(--slime-depth);
+    -webkit-mask-position: top, bottom;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-composite: source-over;
+    mask-image: linear-gradient(#000, #000), var(--slime-edge);
+    mask-size: 100% calc(100% - var(--slime-depth) + 1px), 100% var(--slime-depth);
+    mask-position: top, bottom;
+    mask-repeat: no-repeat;
+    mask-mode: alpha;
+    mask-composite: add;
+}
+
+.home-header .header-content {
+    width: min(700px, calc(100% - 40px));
+}
+
+.chat-widget {
+    position: fixed;
+    bottom: max(16px, env(safe-area-inset-bottom));
+    right: max(16px, env(safe-area-inset-right));
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    font-family: "Nunito", Arial, sans-serif;
+}
+
+.chat-widget, .chat-widget * {
+    box-sizing: border-box;
+}
+
+#chat-toggle {
+    display: grid;
+    place-items: center;
+    width: 120px;
+    padding: 0;
+    border: 0;
+    border-radius: 20px;
+    background: transparent;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+#chat-toggle .chatty-img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+#chat-box {
+    display: flex;
+    flex-direction: column;
+    width: min(360px, calc(100vw - 32px));
+    height: min(420px, calc(100dvh - 180px));
+    overflow: hidden;
+    border: 2px solid #73ad21;
+    border-radius: 20px;
+    background: #fafcec;
+    color: #333;
+    box-shadow: 0 12px 36px rgba(17, 65, 39, 0.22);
+}
+
+#chat-box[hidden] {
+    display: none;
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px;
+    background: #adf95c;
+    border-bottom: 1px solid #73ad21;
+}
+
+.chat-header h2 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.chat-header p {
+    margin: 4px 0 0;
+    font-size: 0.8rem;
+    line-height: 1.3;
+}
+
+#chat-close {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: #333;
+    cursor: pointer;
+    font-size: 28px;
+}
+
+#chat-close:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+#chat-messages {
+    flex: 1;
+    min-height: 0;
+    padding: 16px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+#chat-messages p {
+    width: fit-content;
+    max-width: 90%;
+    margin: 0 0 12px;
+    padding: 10px 12px;
+    border-radius: 14px 14px 14px 4px;
+    background: #e5f3cf;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+#chat-messages .user-message {
+    margin-left: auto;
+    border-radius: 14px 14px 4px 14px;
+    background: #116a9f;
+    color: white;
+}
+
+#chat-form {
+    display: flex;
+    flex-shrink: 0;
+    gap: 8px;
+    padding: 12px;
+    border-top: 1px solid #d6e4bf;
+}
+
+#chat-input {
+    flex: 1;
+    min-width: 0;
+    padding: 10px 12px;
+    border: 1px solid #a3bd80;
+    border-radius: 12px;
+    background: white;
+    color: #333;
+    font: inherit;
+    font-size: 16px;
+}
+
+#chat-form button {
+    width: 44px;
+    border: 0;
+    border-radius: 12px;
+    background: #116a9f;
+    color: white;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+#chat-input:focus-visible {
+    outline: 3px solid #116a9f;
+    outline-offset: 1px;
+}
+
+#chat-messages a {
+    color: #075985;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+#chat-messages a:hover {
+    color: #07a36b;
+}
+
+#chat-messages a:focus-visible {
+    outline: 2px solid #116a9f;
+    outline-offset: 3px;
+    border-radius: 2px;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
+@media (max-height: 500px) {
+    .chat-widget {
+        flex-direction: row;
+        align-items: flex-end;
+    }
+
+    #chat-toggle {
+        width: 64px;
+    }
+
+    #chat-box {
+        width: min(360px, calc(100vw - 104px));
+        height: calc(100dvh - 32px);
+    }
 }

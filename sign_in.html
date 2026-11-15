@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sign In</title>
   <link rel="stylesheet" href="./style.css">
 </head>
@@ -19,36 +21,23 @@
     <div class="header-content" style="height: auto; padding: 30px; width: 600px; margin: 0 auto;">
       <h2 style="color: white; margin-top: 0;">Account Sign In</h2>
       
-      <input type="text" id="user" class="portal-input" placeholder="Username" style="width: 60%;"><br><br>
-      <input type="password" id="pass" class="portal-input" placeholder="Password" style="width: 60%;"><br><br>
-      
-      <button class="portal-btn" onclick="signIn()">Sign In</button><br><br>
+        <form id="signInForm">
+          <input type="email" id="signInEmail" class="portal-input"
+                placeholder="Email" aria-label="Email" autocomplete="username" required style="width: 60%;"><br><br>
+
+          <input type="password" id="signInPassword" class="portal-input"
+                placeholder="Password" aria-label="Password" autocomplete="current-password" required style="width: 60%;"><br><br>
+
+          <button type="submit" class="portal-btn">Sign In</button>
+        </form>
+        <br>
       <button class="portal-btn" onclick="window.location.href='signUp.html'">Create Account Instead</button><br>
       
-      <p id="status" style="font-weight: bold; color: white; margin-top: 15px;"></p>
+      <p id="status" role="status" aria-live="polite" style="font-weight: bold; color: #333; margin-top: 15px;"></p>
     </div>
   </div>
 
-  <script>
-    function getUsers() {
-      return JSON.parse(localStorage.getItem('portal_users')) || [];
-    }
-
-    function signIn() {
-      let u = document.getElementById('user').value;
-      let p = document.getElementById('pass').value;
-      let users = getUsers();
-      let valid = users.find(user => user.username === u && user.password === p);
-
-      if (valid) {
-        localStorage.setItem('currentUser', u);
-        document.getElementById('status').innerText = "Logged in as: " + u;
-        alert("Signed in successfully!");
-      } else {
-        alert("Invalid username or password.");
-      }
-    }
-  </script>
+  <script type="module" src="./scripts/loginAndSignUp.js"></script>
 
 </body>
 </html>

@@ -9,5 +9,19 @@
 <body>
     <h1>Dashboard</h1>
     <p>Welcome to your dashboard!</p>
+
+    <script type="module">
+    import { supabaseClient } from "./scripts/supabaseClient.js";
+
+    const { data: { user }, error } =
+        await supabaseClient.auth.getUser();
+
+    if (error || !user) {
+        window.location.replace("sign_in.html");
+    } else {
+        console.log("Logged in:", user.email);
+        console.log("Username:", user.user_metadata.username);
+    }
+</script>
 </body>
 </html>

@@ -257,6 +257,7 @@ ul.topnav li a.sign_in:hover {
     display: flex;
     gap: 25px;
     width: max-content;
+    padding-right: 25px;
     animation: scroll 30s linear infinite;
 }
 
