@@ -396,6 +396,23 @@ div.learning {
     height: 100%;
 } */
 
+.chatty-intro {
+    background-color: #f4f0cc;
+    border-radius: 20px 20px 0px 0px;
+    text-align: center;
+    font-size: 1.2em;
+    color: #333;
+    padding-right: 30dvw;
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+.chatty-intro h2 {
+    padding-top: 30px;
+    font-size: 1.5em;
+    color: #333;
+}
+
 .chatty {
     position: fixed;
     right: 20px;
@@ -777,6 +794,46 @@ footer {
     color: white;
     font-size: 0.9em;
     border-top: 2px solid #028857;
+}
+
+#topBtn {
+  z-index: 99;
+  border: none;
+  outline: none;
+  background-color: rgba(228, 228, 228, 0.365);
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 20px;
+  font-size: 18px;
+}
+
+.home-page > footer {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: 16px;
+}
+
+.home-page > footer > p {
+    grid-column: 2;
+}
+
+.home-page > footer > #topBtn {
+    grid-column: 3;
+    justify-self: end;
+    white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+    .home-page > footer {
+        grid-template-columns: 1fr;
+    }
+
+    .home-page > footer > p,
+    .home-page > footer > #topBtn {
+        grid-column: 1;
+    }
 }
 
 @media (max-height: 500px) {
