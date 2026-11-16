@@ -22,7 +22,6 @@ body {
 }
 
 body {
-    /* padding: 20px; */
     font-family: "Nunito", Arial, sans-serif;
     background-color: rgb(250, 252, 236);
     /* background-image:
@@ -40,7 +39,7 @@ body {
     position: fixed;
     inset: 0;
     z-index: -1;
-    pointer-events: none; /* Lets clicks pass through to page content */
+    pointer-events: none; 
     background-image:
       linear-gradient(to right, rgba(81, 159, 168, 0.18) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(81,159,168,0.18) 1px, transparent 1px);
@@ -213,6 +212,10 @@ ul.topnav li a.sign_in:hover {
     justify-content: center;
     flex-wrap: wrap;
     width: 100%;
+    /* padding-top: 20px; */
+}
+
+h2.learning-container {
     padding-top: 20px;
 }
 
@@ -237,6 +240,18 @@ div.learning {
     padding: 50px;
     margin: 20px;
     border: 3px solid #73AD21;
+    border-radius: 20px;
+}
+
+.home-intro .learning {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width:100px;
+    padding: 50px;
+    margin: 20px;
+    border: 3px solid #53ce71;
+    background-color: #9cf060ac;
     border-radius: 20px;
 }
 
@@ -347,29 +362,28 @@ div.learning {
     cursor: none !important;
 } */
 
-/* Connect navbar and header */
+
 header {
     /* border: 8px solid #171717; */
     /* border-radius: 28px; */
     overflow: hidden;
 }
 
-/* Integrated navbar */
+
 header ul.topnav {
     /* background-color: rgba(250, 252, 236, 0.95); */
      background-color: transparent;
     border-bottom: none;
 }
 
-/* Navbar text */
+
 header ul.topnav li a:not(.sign_in) {
     color: #333;
 }
 
-/* One continuous background keeps both greens seamless through the slime edge. */
+
 .home-header {
     --slime-depth: clamp(60px, 7vw, 100px);
-    /* slime locally (Chrome) */
     --slime-edge: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201440%20100%22%20preserveAspectRatio%3D%22none%22%3E%20%3Cpath%20fill%3D%22%23000%22%20d%3D%22M0%200H1440V8%20C1418%208%201416%2025%201408%2046%20C1400%2068%201384%2082%201363%2082%20C1336%2082%201328%2064%201328%2044%20C1328%2025%201314%2010%201295%2010%20C1274%2010%201260%2024%201260%2043%20C1260%2073%201244%2096%201216%2096%20C1188%2096%201172%2076%201172%2052%20C1172%2026%201154%206%201128%206%20C1100%206%201080%2020%201080%2040%20C1080%2059%201068%2069%201052%2069%20C1036%2069%201025%2057%201025%2040%20C1025%2018%201008%208%20986%208%20C958%208%20944%2026%20940%2048%20C936%2073%20919%2086%20894%2086%20C866%2086%20850%2069%20850%2048%20C850%2024%20834%2010%20812%2010%20C786%2010%20774%2026%20774%2042%20C774%2056%20764%2065%20750%2065%20C734%2065%20724%2054%20724%2039%20C724%2017%20710%205%20688%205%20C659%205%20644%2024%20642%2051%20C640%2079%20623%2098%20596%2098%20C566%2098%20550%2078%20550%2053%20C550%2027%20535%209%20511%209%20C488%209%20474%2023%20474%2043%20C474%2059%20464%2071%20448%2071%20C432%2071%20422%2059%20422%2042%20C422%2020%20408%208%20386%208%20C361%208%20346%2025%20344%2048%20C342%2077%20323%2092%20297%2092%20C271%2092%20254%2074%20254%2051%20C254%2026%20238%208%20214%208%20C190%208%20176%2022%20176%2039%20C176%2057%20164%2067%20149%2067%20C132%2067%20122%2054%20122%2038%20C122%2018%20108%205%2086%205%20C64%205%2053%2019%2051%2036%20C49%2056%2039%2070%2024%2070%20C9%2070%200%2054%200%2032Z%22%2F%3E%20%3C%2Fsvg%3E");
     position: relative;
     isolation: isolate;
@@ -384,7 +398,6 @@ header ul.topnav li a:not(.sign_in) {
     z-index: -1;
     pointer-events: none;
     background: url('./photos/headerBg.svg') center / cover no-repeat;
-    /* Overlap the masks slightly to avoid a hairline at the join. */
     -webkit-mask-image: linear-gradient(#000, #000), var(--slime-edge);
     -webkit-mask-size: 100% calc(100% - var(--slime-depth) + 1px), 100% var(--slime-depth);
     -webkit-mask-position: top, bottom;
@@ -402,8 +415,18 @@ header ul.topnav li a:not(.sign_in) {
     width: min(700px, calc(100% - 40px));
 }
 
+/* Anchor Chatty to the end of main, directly above the footer. */
+.chat-dock {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0;
+    z-index: 100;
+}
+
 .chat-widget {
-    position: fixed;
+    position: absolute;
     bottom: max(16px, env(safe-area-inset-bottom));
     right: max(16px, env(safe-area-inset-right));
     z-index: 100;
@@ -581,6 +604,49 @@ header ul.topnav li a:not(.sign_in) {
     border: 0;
 }
 
+/* Keep the homepage footer at the bottom, including on short pages. */
+body.home-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+.home-page .home-main {
+    position: relative;
+    flex: 1 0 auto;
+    min-width: 0;
+}
+
+.home-page > header,
+.home-page > footer {
+    flex-shrink: 0;
+}
+
+.home-intro h2 {
+    text-align: center;
+    font-size: 1.8em;
+    color: #333;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.home-intro p {
+    text-align: center;
+    font-size: 1.2em;
+    color: #51652b;
+    margin-top: 0px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #9EE855;
+    color: white;
+    font-size: 0.9em;
+    border-top: 2px solid #028857;
+}
+
 @media (max-height: 500px) {
     .chat-widget {
         flex-direction: row;
@@ -596,3 +662,4 @@ header ul.topnav li a:not(.sign_in) {
         height: calc(100dvh - 32px);
     }
 }
+
