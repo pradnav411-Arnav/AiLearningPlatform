@@ -17,6 +17,8 @@ document.addEventListener('mousemove', (e) => {
 const floatGrid = document.querySelector('.grid-float');
 
     window.addEventListener('mousemove', (e) => {
-      floatGrid.style.setProperty('--x', `${e.clientX}px`);
-      floatGrid.style.setProperty('--y', `${e.clientY}px`);
+      if (!floatGrid) return;
+      const bounds = floatGrid.getBoundingClientRect();
+      floatGrid.style.setProperty('--x', `${e.clientX - bounds.left}px`);
+      floatGrid.style.setProperty('--y', `${e.clientY - bounds.top}px`);
     });

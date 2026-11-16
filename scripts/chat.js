@@ -7,6 +7,29 @@ const form = document.getElementById("chat-form");
 const input = document.getElementById("chat-input");
 const messages = document.getElementById("chat-messages");
 
+// Stay in the viewport, lifting above the footer only when it becomes visible.
+const widget = document.querySelector(".chat-widget");
+const footer = document.querySelector("footer");
+if (widget && footer) {
+  let scheduled = false;
+  const updatePosition = () => {
+    const overlap = Math.max(0, window.innerHeight - footer.getBoundingClientRect().top);
+    widget.style.setProperty("--footer-overlap", `${overlap}px`);
+    scheduled = false;
+  };
+  const schedulePosition = () => {
+    if (scheduled) return;
+    scheduled = true;
+    requestAnimationFrame(updatePosition);
+  };
+  window.addEventListener("scroll", schedulePosition, { passive: true });
+  window.addEventListener("resize", schedulePosition);
+  const observer = new ResizeObserver(schedulePosition);
+  observer.observe(document.body);
+  observer.observe(footer);
+  updatePosition();
+}
+
 // Theses are the only HTML files that can be linked in Chatty's answers. This stops any malicious HTML or scripts from being injected into the page.
 const isPageFile = (href) => {
   if (typeof href !== "string") return false;

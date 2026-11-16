@@ -4,6 +4,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="./photos/logo.svg" type="image/x-icon">
     <title>Home</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,6 +14,7 @@
 
     <script src="./scripts/script.js" defer></script>
     <script src="./scripts/chat.js" defer></script>
+    <script src="./scripts/popup.js" defer></script>
 </head>
 <body class="home-page">
     <div class="grid-base"></div>
@@ -20,7 +22,7 @@
     <header class="home-header">
         <nav>
             <ul class="topnav">
-                <li><img src="./photos/logo.png" alt="Logo"></li>
+                <li><img src="./photos/logo.svg" alt="Logo"></li>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="MissionPage.html">Mission Page</a></li>
                 <li><a href="LearningHub.html">Learning Hub</a></li>
@@ -44,27 +46,45 @@
     <main class="home-main">
     <div class="home-intro">
         <h2>What Makes AI Ethical?</h2>
-        <p>These are the principles of responsible artificial intelligence</p>
+        <p id="home-submessage">These are the principles of responsible artificial intelligence</p>
+        <p id="home-subsubmessage">(Click on any of the following to learn more)</p>
             <div class="learning-container">
                 <div class="learning-item">
+                    <button class="preview-box" data-title="AI Safety" data-description="Use AI in ways that protect yourself and others. Don’t share personal information (like your full name, address, or passwords) with AI tools, and don’t use AI to create content that could hurt, harass, or mislead anyone.">
                     <div class="learning">
-                        <img src="./photos/ethics.svg" alt="Learning">
+
+                        <img class="home-learning-icon" src="./photos/shield.png" alt="Shield">
                         <h4>Safety</h4>
                     </div>
+                    </button>
                 </div>
                 <div class="learning-item">
+                    <button class="preview-box" data-title="AI Fairness" data-description="Question answers that stereotype or leave people out, and make sure you use AI in ways that treat everyone equally. Don’t use it to give yourself an unfair advantage, like passing off AI work as entirely your own.">
                     <div class="learning">
-                        <img src="./photos/justice.svg" alt="Learning">
+                        <img class="home-learning-icon" src="./photos/social-justice.png" alt="Balance">
                         <h4>Fairness</h4>
                     </div>
+                    </button>
                 </div>
                 <div class="learning-item">
+                    <button class="preview-box" data-title="AI Transparency" data-description="Be open about when and how you use AI. Tell your teacher when AI helped with an assignment, cite it just like any other source, and be honest about what you did yourself versus what the AI did. Also, try to understand how the tool works and what its limits are, rather than trusting it blindly.">
                     <div class="learning">
-                        <img src="./photos/beneficence.svg" alt="Learning">
+                        <img class="home-learning-icon" src="./photos/loupe.png" alt="Loupe">
                         <h4>Transparency</h4>
                     </div>
+                    </button>
                 </div>
             </div>
+    </div>
+
+    <!-- Popup -->
+    <div class="popup-overlay" id="popup" hidden>
+        <div class="popup-content">
+            <button class="close-popup" id="close-popup">&times;</button>
+
+            <h2 id="popup-title"></h2>
+            <p id="popup-description"></p>
+        </div>
     </div>
 
     <h2 class="learning-container">What Can You Learn?</h2>

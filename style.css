@@ -47,6 +47,12 @@ body {
 
   }
 
+/* Keep the homepage grid aligned with the document rather than the viewport. */
+.home-page > .grid-base,
+.home-page > .grid-float {
+    position: absolute;
+}
+
 .grid-float {
      background-image:
       linear-gradient(to right, rgba(81,159,168,0.18) 2px, transparent 2.5px),
@@ -245,15 +251,123 @@ div.learning {
 
 .home-intro .learning {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
     justify-content: center;
     width:100px;
     padding: 50px;
     margin: 20px;
     border: 3px solid #53ce71;
-    background-color: #9cf060ac;
+    background-color: #baf094;
     border-radius: 20px;
+    transition: background-color 0.2s;
 }
+
+#home-submessage {
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 0px;
+}
+
+#home-subsubmessage {
+    text-align: center;
+    font-size: 1em;
+    margin-top: 0px;
+}
+
+.home-intro .learning h4 {
+    margin: 0;
+}
+
+.home-learning-icon {
+    height: 50px;
+    width: auto;
+}
+
+.preview-box {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  transition: transform 0.2s;
+}
+
+.preview-box:hover {
+  transform: translateY(-5px);
+}
+
+/* Escape restores keyboard focus to the opener; use the site's focus color. */
+.preview-box:focus-visible,
+.close-popup:focus-visible,
+#chat-toggle:focus-visible,
+#chat-close:focus-visible,
+#chat-form button:focus-visible {
+    outline: none;
+}
+
+.home-intro .learning:hover {
+    border-color: #44a55c;
+    background-color: #a5e677;
+  }
+
+/* Dark background */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Popup window */
+.popup-content {
+  position: relative;
+  background: rgb(244, 247, 221);
+  color: black;
+  padding: 35px;
+  border-radius: 15px;
+  border: 3px solid rgb(221, 244, 205);
+  width: 100%;
+  max-width: 500px;
+  box-sizing: border-box;
+  transform: translateY(20px) scale(0.95);
+  opacity: 0;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+/* When popup opens */
+.popup-overlay.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Smooth expansion */
+.popup-overlay.show .popup-content {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+/* X button */
+.close-popup {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: rgb(70, 70, 70);
+  font-size: 28px;
+  cursor: pointer;
+}
+
 
 .row {
     text-align: center;
@@ -303,7 +417,29 @@ div.learning {
 }
 
 .underline {
-    text-decoration: underline;
+  position: relative;
+  display: inline-block; 
+  overflow: hidden;
+  vertical-align: bottom; 
+  padding-top: 0.1em;
+}
+
+.underline::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0.1em;
+  background-color: rgb(167, 255, 173);
+  transform: translate3d(-100%, 0, 0);
+  animation: slideIn 500ms ease-out 200ms forwards;
+}
+
+@keyframes slideIn {
+  to {
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 .welcome-message {
@@ -415,19 +551,15 @@ header ul.topnav li a:not(.sign_in) {
     width: min(700px, calc(100% - 40px));
 }
 
-/* Anchor Chatty to the end of main, directly above the footer. */
+/* The widget floats without taking up space in the page content. */
 .chat-dock {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
     height: 0;
-    z-index: 100;
 }
 
 .chat-widget {
-    position: absolute;
-    bottom: max(16px, env(safe-area-inset-bottom));
+    --footer-overlap: 0px;
+    position: fixed;
+    bottom: calc(max(16px, env(safe-area-inset-bottom)) + var(--footer-overlap));
     right: max(16px, env(safe-area-inset-right));
     z-index: 100;
     display: flex;
@@ -463,7 +595,7 @@ header ul.topnav li a:not(.sign_in) {
     display: flex;
     flex-direction: column;
     width: min(360px, calc(100vw - 32px));
-    height: min(420px, calc(100dvh - 180px));
+    height: min(420px, calc(100dvh - 180px - var(--footer-overlap)));
     overflow: hidden;
     border: 2px solid #73ad21;
     border-radius: 20px;
@@ -659,7 +791,7 @@ footer {
 
     #chat-box {
         width: min(360px, calc(100vw - 104px));
-        height: calc(100dvh - 32px);
+        height: calc(100dvh - 32px - var(--footer-overlap));
     }
 }
 
