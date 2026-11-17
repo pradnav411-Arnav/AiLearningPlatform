@@ -79,6 +79,27 @@
 </div>
         </section>
     </main>
-    
+    <script>
+function generatePrompt() {
+    const role = document.getElementById("roleInput").value.trim();
+    const prompt = document.getElementById("promptInput").value.trim();
+
+    if (role === "" || prompt === "") {
+        alert("Please fill out both fields.");
+        return;
+    }
+
+    const output =
+`Act as a ${role}.
+
+Using the knowledge and experience of a ${role}, respond to the following request:
+
+${prompt}`;
+
+    document.getElementById("outputPrompt").value = output;
+}
+</script>
+</body>
+</html>
 </body>
 </html>
