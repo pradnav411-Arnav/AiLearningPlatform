@@ -7,23 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Progressions</title>
     <link rel="stylesheet" href="./style2.css">
-    <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./auth-modal.css">
     <script type="module" src="./scripts/loginAndSignUp.js"></script>
-    <style>
-        header {
-            background-image: none;
-        }
-
-        header ul.topnav {
-            margin: 10px;
-            padding: 10px 20px;
-            background-color: #a3d66085;
-        }
-    </style>
 </head>
 
 <body>
+    <div class="grid-base"></div>
+    <div class="grid-float"></div>
+
     <header>
         <nav>
             <ul class="topnav">
@@ -36,41 +27,39 @@
                 <li><a href="Progression.html">Progressions</a></li>
                 <li class="right_nav"><a href="./signUp.html">Get Started</a></li>
                 <li class="right_nav">
-                  <a href="#signInModal" id="openSignInBtn" class="sign_in">Sign In</a>
+                    <a href="#signInModal" id="openSignInBtn" class="sign_in">Sign In</a>
                 </li>
-                
             </ul>
         </nav>
     </header>
-
-    <section class="intro">
-        <h1>AI Mission Progression</h1>
-        <p>Complete each mission to continue your journey through the world of artificial intelligence.</p>
+    <section class="page-title">
+    <h1>Progressions</h1>
     </section>
+  
 
     <main class="timeline">
         <svg class="scroll-line" viewBox="0 0 1000 1000" preserveAspectRatio="none">
             <path class="line-background" d="
                 M250 25
-                C250 45 680 42 750 75
-                C820 105 370 95 330 125
-                C280 155 690 145 680 175
-                C670 205 220 195 250 225
-                C280 255 790 250 760 275
-                C730 300 410 295 430 325
-                C450 355 820 350 750 375
-                C680 400 180 390 250 425
-                C320 460 850 445 800 475
-                C750 505 350 500 330 525
-                C310 550 720 550 750 575
-                C780 600 270 600 250 625
-                C230 650 650 645 680 675
-                C710 705 200 700 250 725
-                C300 750 820 745 760 775
-                C700 805 390 800 430 825
-                C470 850 850 845 750 875
-                C650 905 200 900 250 925
-                C300 950 650 950 750 975
+                L650 75
+                L350 125
+                L650 175
+                L300 225
+                L700 275
+                L430 325
+                L700 375
+                L300 425
+                L700 475
+                L350 525
+                L650 575
+                L300 625
+                L650 675
+                L300 725
+                L700 775
+                L430 825
+                L700 875
+                L300 925
+                L650 975
             "/>
         </svg>
 
@@ -95,5 +84,14 @@
         <a href="Page19.html" class="timeline-point point19">19</a>
         <a href="Page20.html" class="timeline-point point20">20</a>
     </main>
+
+    <script>
+        const grid = document.querySelector(".grid-float");
+
+        document.addEventListener("mousemove", (e) => {
+            grid.style.setProperty("--x", `${e.clientX}px`);
+            grid.style.setProperty("--y", `${e.clientY}px`);
+        });
+    </script>
 </body>
 </html>
