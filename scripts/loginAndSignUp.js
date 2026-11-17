@@ -225,8 +225,9 @@ function initializeAccountNavigation() {
     guestItems.forEach(item => item.classList.remove("nav-auth-hidden"));
   }
   function showAccount(user, profile) {
-    logoutDock.hidden = false;
-    document.body.classList.add("has-logout-button");
+    const isDashboard = document.body.classList.contains("dashboard-page");
+    logoutDock.hidden = !isDashboard;
+    document.body.classList.toggle("has-logout-button", isDashboard);
     nav.classList.add("has-signed-in-account");
     const username = profile?.username || user.user_metadata?.username || "My Account";
     const avatarId = [1, 2, 3].includes(Number(profile?.avatar_id)) ? Number(profile.avatar_id) : 1;

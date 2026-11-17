@@ -143,10 +143,21 @@ async function loadProgress() {
     }
     document.getElementById("dashboard-xp").textContent = xp.toLocaleString();
     document.getElementById("dashboard-level").textContent = level.toLocaleString();
+    const levelXP = Math.max(0, xp) % 100;
+    const bar = document.getElementById("dashboard-xp-bar");
+    bar.setAttribute("aria-valuenow", String(levelXP));
+    bar.setAttribute("aria-valuetext", `${levelXP} of 100 XP toward the next level`);
+    document.getElementById("dashboard-xp-fill").style.width = `${levelXP}%`;
+    document.getElementById("dashboard-xp-detail").textContent = `${levelXP.toLocaleString()} / 100 XP toward next level`;
     status.textContent = "Your latest saved progress.";
   } catch (error) {
     document.getElementById("dashboard-xp").textContent = "—";
     document.getElementById("dashboard-level").textContent = "—";
+    const bar = document.getElementById("dashboard-xp-bar");
+    bar.removeAttribute("aria-valuenow");
+    bar.setAttribute("aria-valuetext", "Progress unavailable");
+    document.getElementById("dashboard-xp-fill").style.width = "0%";
+    document.getElementById("dashboard-xp-detail").textContent = "";
     status.textContent = "Unable to load progress: " + error.message;
   } finally {
     refresh.disabled = false;
@@ -271,110 +282,112 @@ document.getElementById("refresh-progress").addEventListener("click", loadProgre
 
         }
 
+        @font-face {
+            font-family: 'Press Start 2P';
+            src: url('./fonts/press-start-2p/PressStart2P-Regular.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
         .dashboard-progress {
-            margin: 32px 40px;
-            padding: 24px;
-            max-width: 600px;
-            border: 1px solid #334c53;
-            border-radius: 26px;
-            background: rgba(13, 36, 40, 0.92);
-            color: #fff;
+            min-width: 0;
+            padding: 24px 0;
+            color: #244d57;
         }
 
         .progress-heading {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
         }
-.dashboard-progress {
-    margin: 32px 24px 32px auto;
-    padding: 28px;
-    background-color: #a1f19d;
-    border: 1px solid #234023;
-    border-radius: 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    font-family: Arial, sans-serif;
-}
 
-/* Header & Title Styling */
-.dashboard-progress h2 {
-    padding: 0;
-    margin: 0 0 16px 0;
-    font-size: 24px;
-    font-weight: 700;
-    color: #3d442e;
-    letter-spacing: -0.3px;
-}
+        .dashboard-progress h2 {
+            margin: 0;
+            padding: 0;
+            color: #426160;
+            font: 400 24px 'Talina', Arial, sans-serif;
+        }
 
-/* Refresh Action Button */
-#refresh-progress {
-    background: #72dd6e;
-    color: #102b28;
-    border: 0;
-    border-radius: 20px;
-    padding: 10px 18px;
-    font-weight: 600;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background 0.2s ease, transform 0.1s ease;
-}
+        #refresh-progress {
+            padding: 8px 16px;
+            border: 1px solid #368abd;
+            border-radius: 2px;
+            background: #2995d4;
+            color: #fff;
+            font: 600 14px Arial, sans-serif;
+            cursor: pointer;
+        }
 
-#refresh-progress:hover {
-    background: #71f85f;
-}
+        #refresh-progress:hover { background: #56a2cb; }
+        #refresh-progress:focus-visible {
+            outline: 3px solid #116a9f;
+            outline-offset: 4px;
+        }
+        #refresh-progress:disabled { opacity: 0.6; cursor: wait; }
 
-#refresh-progress:active {
-    transform: scale(0.98);
-}
+        .xp-display {
+            margin: 32px 0 24px;
+            padding: 8px 6px;
+            color: #116a9f;
+            font: 400 clamp(28px, 3.7vw, 48px)/1.6 'Press Start 2P', monospace;
+            letter-spacing: -2px;
+            overflow-wrap: anywhere;
+            text-shadow:
+                -3px -3px 0 #fff, 3px -3px 0 #fff,
+                -3px 3px 0 #fff, 3px 3px 0 #fff,
+                0 5px 0 #c9e5e7;
+        }
 
-#refresh-progress:disabled {
-    opacity: 0.6;
-    cursor: wait;
-}
+        /* Each level spans 100 XP; the fill shows progress within that level. */
+        .xp-bar {
+            height: 24px;
+            border: 2px solid #244d57;
+            border-radius: 7px;
+            overflow: hidden;
+            background: #e0edf0;
+            box-shadow: inset 0 2px 3px rgba(36, 77, 87, 0.12), 0 4px 0 #c9e5e7;
+        }
 
-/* Progress Statistics Grid Layout */
-.progress-stats {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
-    margin: 24px 0 16px;
-}
+        .xp-bar-fill {
+            display: block;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(180deg, #86d8f6 0%, #368abd 100%);
+            box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.55);
+            transition: width 300ms ease;
+        }
 
-.progress-stats > div {
-    padding: 20px;
-    border-radius: 16px;
-    background: rgba(113, 201, 81, 0.48);
-    border: 1px solid #334c53;
-}
+        .xp-detail {
+            min-height: 1.5em;
+            margin: 12px 0 0;
+            color: #426160;
+            font: 14px/1.5 Arial, sans-serif;
+        }
 
-.progress-stats dt {
-    font: 16px Arial, sans-serif;
-    color: #446a34;
-}
+        @media (prefers-reduced-motion: reduce) {
+            .xp-bar-fill { transition: none; }
+        }
 
-.progress-stats dd {
-    margin: 10px 0 0;
-    font: bold 36px Arial, sans-serif;
-    color: #5dc951;
-    overflow-wrap: anywhere;
-}
+        .current-level {
+            margin: 22px 0 0;
+            text-align: right;
+            color: #244d57;
+            font: 400 clamp(22px, 2.4vw, 30px)/1.4 'Talina', Arial, sans-serif;
+        }
 
-@media (max-width: 500px) {
-    .dashboard-progress {
-        margin: 24px 16px;
-        padding: 20px;
-    }
-    
-    .progress-stats {
-        grid-template-columns: 1fr; /* Stacks stats vertically on smaller screens */
-        gap: 12px;
-    }
-    
-    .progress-stats > div {
-        padding: 14px;
-    }
-}
+        #progress-status {
+            margin: 14px 0 0;
+            color: #426160;
+            font: 14px/1.6 Arial, sans-serif;
+        }
+
+        @media (max-width: 500px) {
+            .dashboard-progress { padding: 16px 0; }
+            .dashboard-progress h2 { font-size: 21px; }
+            .xp-display { font-size: 28px; letter-spacing: -1px; }
+        }
         .dashboard-layout {
             display: grid;
             grid-template-columns: minmax(0, 358px) minmax(0, 658px);
@@ -383,6 +396,13 @@ document.getElementById("refresh-progress").addEventListener("click", loadProgre
             align-items: start;
             gap: 32px;
             margin: 32px 24px 40px 40px;
+        }
+
+        #dashboard-level {
+            font-family: 'Press Start 2P', monospace;
+            font-weight: 400;
+            /* Match the pixel font's visible baseline to Talina's lettering. */
+            vertical-align: -0.14em;
         }
         .dashboard-layout > .profile-settings { grid-area: profile; margin: 0; max-width: none; }
         .dashboard-layout > .dashboard-progress { grid-area: progress; margin: 0; max-width: none; }
@@ -396,7 +416,7 @@ document.getElementById("refresh-progress").addEventListener("click", loadProgre
         }
     </style>
 </head>
-<body>
+<body class="dashboard-page">
     <div class="grid-base"></div>
     <div class="grid-float"></div>
     <header>
@@ -421,16 +441,18 @@ document.getElementById("refresh-progress").addEventListener("click", loadProgre
     <h2>Welcome, <span id="username"></span>!</h2>
 
     <div class="dashboard-layout">
-    <section class="dashboard-progress">
+    <section class="dashboard-progress" aria-labelledby="progress-title">
         <div class="progress-heading">
             <h2 id="progress-title">Your Progress</h2>
             <button type="button" id="refresh-progress">Refresh</button>
         </div>
-        <dl class="progress-stats">
-            <div><dt>Total XP</dt><dd id="dashboard-xp">—</dd></div>
-            <div><dt>Current Level</dt><dd id="dashboard-level">—</dd></div>
-        </dl>
-        <p id="progress-status" role="status">Loading your progress...</p>
+        <p class="xp-display"><span id="dashboard-xp">—</span> XP</p>
+        <div class="xp-bar" id="dashboard-xp-bar" role="progressbar" aria-label="XP toward next level" aria-valuemin="0" aria-valuemax="100" aria-valuetext="Loading progress">
+            <span class="xp-bar-fill" id="dashboard-xp-fill"></span>
+        </div>
+        <p class="xp-detail" id="dashboard-xp-detail"></p>
+        <p class="current-level">Current Level <span id="dashboard-level">—</span></p>
+        <p id="progress-status" role="status" hidden>your progress...</p>
     </section>
 
 
