@@ -1,18 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="./photos/logo.svg" type="image/x-icon">
-    <title>Home</title>
+    <title>Missions | AI Learning Platform</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
-<link rel="stylesheet" href="./auth-modal.css">
-<script type="module" src="./scripts/loginAndSignUp.js"></script>
+    <link rel="stylesheet" href="./MissionPage.css">
+    <link rel="stylesheet" href="./auth-modal.css">
+
+    <!-- if you signed out get outta here to signUp.html -->
+    <script type="module">
+      import { supabaseClient } from "./scripts/supabaseClient.js";
+
+      // ts checks if user is logged in, if signed out kick to signUp.html
+      async function checkUserAuth() {
+        try {
+          const { data: { user }, error } = await supabaseClient.auth.getUser();
+          if (!user || error) {
+            window.location.replace("./signUp.html");
+          }
+        } catch (e) {
+          window.location.replace("./signUp.html");
+        }
+      }
+
+      checkUserAuth();
+    </script>
+
+    <script type="module" src="./scripts/loginAndSignUp.js"></script>
 
     <script src="./scripts/script.js" defer></script>
     <script src="./scripts/chat.js" defer></script>
@@ -21,6 +41,8 @@
 <body class="home-page">
     <div class="grid-base"></div>
     <div class="grid-float"></div>
+
+    <!--TOP NAV DONT MESS WITH THIS GUYS(nit)-->
     <header class="home-header">
         <nav>
             <ul class="topnav">
@@ -35,30 +57,116 @@
                 <li class="right_nav">
                   <a href="#signInModal" id="openSignInBtn" class="sign_in">Sign In</a>
                 </li>
-                
             </ul>
         </nav>
         <div class="row">
             <div class="header-content">
                 <div class="header-subborder">   
                     <h1>Missions<br></h1>
-                    <p>Track Missions | <span class="underline"> Keep LOGS Daily </span> | Earn points </p>
+                    <p>Track Missions | <span class="underline"> Complete Quests </span> | Earn points </p>
                 </div>
             </div>
         </div>
     </header>
+
+    <!--MISSIONS SECTION DONT DELETE OR WE COOKED-->
+    <main class="missions-container">
+      
+      <div class="missions-header-text">
+        <h2>Available Student Missions</h2>
+        <p>Click any mission to earn points and level up on the scoreboard!</p>
+      </div>
+
+      <div class="missions-list">
+
+        <!--MISSION 1: LEARNING HUB DUB-->
+        <div class="mission-card">
+          <div class="mission-info">
+            <h3>Visit the Learning Hub <span class="point-tag">+1 Point</span></h3>
+            <p>Explore AI beginner quests and learn the fundamentals of artificial intelligence.</p>
+          </div>
+          <button type="button" class="mission-btn" onclick="goMission(1, 'LearningHub.html', this)">
+            Start Mission (+1 pt) &rarr;
+          </button>
+        </div>
+
+        <!--MISSION 2: PROBLEM SOLVING HUGE POINTS-->
+        <div class="mission-card">
+          <div class="mission-info">
+            <h3>Master Problem Solving <span class="point-tag big-points">+5 Points</span></h3>
+            <p>Dive deep into AI problem solving techniques and critical thinking scenarios.</p>
+          </div>
+          <button type="button" class="mission-btn" onclick="goMission(5, 'ProblemSolving.html', this)">
+            Start Mission (+5 pts) &rarr;
+          </button>
+        </div>
+
+        <!--MISSION 3: FOSTERING KNOWLEDGE BONUS-->
+        <div class="mission-card">
+          <div class="mission-info">
+            <h3>Explore Fostering Knowledge <span class="point-tag">+3 Points</span></h3>
+            <p>Understand how AI systems retain and apply knowledge across multiple domains.</p>
+          </div>
+          <button type="button" class="mission-btn" onclick="goMission(3, 'FosteringKnowledge.html', this)">
+            Start Mission (+3 pts) &rarr;
+          </button>
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- ts gives the user points and piles them up every single click -->
+    <script type="module">
+      import { supabaseClient } from "./scripts/supabaseClient.js";
+
+      window.goMission = async function(points, targetUrl, btn) {
+        if (btn) {
+          btn.disabled = true;
+          btn.textContent = "Claiming +" + points + " pts...";
+        }
+
+        try {
+          // see if student is signed in with supabase
+          const { data: { user } } = await supabaseClient.auth.getUser();
+
+          if (!user) {
+            // signed out -> yeet to signUp.html (not broken sign_in page)
+            window.location.href = "./signUp.html";
+            return;
+          }
+
+          // piles up points every single click no matter what
+          const userKey = user.email || user.id || "demo_student";
+          let currentPts = parseInt(localStorage.getItem("points_" + userKey) || "0", 10);
+          let newPts = currentPts + points;
+          localStorage.setItem("points_" + userKey, newPts);
+          localStorage.setItem("latest_demo_score", newPts);
+          localStorage.setItem("latest_user_email", user.email || "");
+
+          // try updating in supabase table too
+          try {
+            await supabaseClient
+              .from('profiles')
+              .upsert({
+                id: user.id,
+                email: user.email,
+                username: user.user_metadata?.username || user.email,
+                score: newPts,
+                xp: newPts
+              });
+            console.log("piled up points saved to supabase:", newPts);
+          } catch (supErr) {
+            console.log("supabase update hiccup but local storage secured the points:", supErr);
+          }
+
+        } catch (err) {
+          console.log("error adding points but we move:", err);
+        }
+
+        // redirect immediately to mission page
+        window.location.href = targetUrl;
+      };
+    </script>
 </body>
-
-
-
-
-
-
-
-
-
-
-
 </html>
-
-

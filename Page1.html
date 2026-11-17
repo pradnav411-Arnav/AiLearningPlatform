@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./photos/logo.svg" type="image/svg+xml">
+    <title>Study Partner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <script src="./scripts/script.js" defer></script>
+    <script src="./scripts/chat.js" defer></script>
+    <script src="./scripts/popup.js" defer></script>
+</head>
+<body class="home-page">
+    <div class="grid-base"></div>
+    <div class="grid-float"></div>
+
+    <header class="home-header">
+        <nav>
+            <ul class="topnav">
+                <li><img src="./photos/logo.svg" alt="Logo"></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="MissionPage.html">Mission Page</a></li>
+                <li><a href="LearningHub.html">Learning Hub</a></li>
+                <li><a href="Scoreboard.html">Scoreboard</a></li>
+                <li><a href="References.html">References</a></li>
+                <li><a href="Progression.html">Progressions</a></li>
+                <li class="right_nav"><a href="./signUp.html">Get Started</a></li>
+                <li class="right_nav">
+                    <a href="#" id="openSignInBtn" class="sign_in">Sign In</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="section">
+            <h1>Intoduction To prompting</h1>
+
+            <p>
+               Artificial Intelligence (AI) is a powerful technology that is designed to generate responses and perform tasks based on user input. The effectiveness, accuracy, and usefulness of AI-generated responses depend heavily on the prompts provided by users. Clear, detailed, and well-structured prompts help AI better understand the user's needs, resulting in more relevant and informative answers. As AI continues to develop, learning how to create strong prompts has become an essential skill for maximizing its potential.
+            </p>
+            <h1>Role-Based AI prompting.</h1>
+
+            <p>
+                One of the most important prompting techniques is assigning a role to the AI. Giving AI a specific role, such as a teacher, scientist, historian, or software engineer, helps guide the perspective and style of its responses. This allows the AI to provide explanations that are more accurate, focused, and suited to the user's goals. Role-based prompting can improve the quality of information, make responses easier to understand, and ensure that the AI addresses topics in a way that aligns with the intended audience or purpose.
+            </p>
+            <h2>A Prompting Tutorial</h2>
+            <div class="prompt-builder">
+    <h3>Try Role-Based Prompting</h3>
+
+    <label for="roleInput">AI Role</label>
+    <input
+        type="text"
+        id="roleInput"
+        placeholder="Example: History Teacher"
+    >
+
+    <label for="promptInput">Your Prompt</label>
+    <textarea
+        id="promptInput"
+        rows="5"
+        placeholder="Example: Explain the causes of World War I."
+    ></textarea>
+
+    <button onclick="generatePrompt()">
+        Generate Prompt
+    </button>
+
+    <label for="outputPrompt">Generated Prompt</label>
+    <textarea
+        id="outputPrompt"
+        rows="8"
+        readonly
+    ></textarea>
+</div>
+        </section>
+    </main>
+    <script>
+function generatePrompt() {
+    const role = document.getElementById("roleInput").value.trim();
+    const prompt = document.getElementById("promptInput").value.trim();
+
+    if (role === "" || prompt === "") {
+        alert("Please fill out both fields.");
+        return;
+    }
+
+    const output =
+`Act as a ${role}.
+
+Using the knowledge and experience of a ${role}, respond to the following request:
+
+${prompt}`;
+
+    document.getElementById("outputPrompt").value = output;
+}
+</script>
+</body>
+</html>
+</body>
+</html>
