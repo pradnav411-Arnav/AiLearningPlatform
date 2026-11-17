@@ -329,6 +329,13 @@
         console.log("auth check error on scoreboard:", e);
       }
 
+      // make sure we always have at least 3 accounts so podium never gets stuck on Loading...
+      backupAccounts.forEach(bk => {
+        if (!usersList.some(u => (u.email && u.email === bk.email) || (u.username && u.username === bk.username))) {
+          usersList.push(bk);
+        }
+      });
+
       // also check if any other user has local points saved so demo never misses
       usersList.forEach(u => {
         const key = u.email || u.id;
