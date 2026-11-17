@@ -158,12 +158,15 @@
     // this checks if user logged in, if not then sends to signUp.html
     async function checkScoreboardAuth() {
       try {
-        const { data: { user }, error } = await supabaseClient.auth.getUser();
-        if (!user || error) {
-          window.location.replace("./signUp.html");
+        const { data: { session } } = await supabaseClient.auth.getSession();
+        if (!session) {
+          const { data: { user }, error } = await supabaseClient.auth.getUser();
+          if (!user || error) {
+            window.location.replace("./signUp.html");
+          }
         }
       } catch (e) {
-        window.location.replace("./signUp.html");
+        console.log("auth check error on scoreboard:", e);
       }
     }
 
@@ -391,8 +394,12 @@
       });
     }
 
-    // load joint on page start
-    window.addEventListener("DOMContentLoaded", loadScoreboard);
+    // load joint on page start immediately (don't miss DOMContentLoaded on github pages)
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", loadScoreboard);
+    } else {
+      loadScoreboard();
+    }
   </script>
 
 </body>
