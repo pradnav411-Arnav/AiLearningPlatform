@@ -11,6 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
+<link rel="stylesheet" href="./auth-modal.css">
 
     <script src="./scripts/script.js" defer></script>
     <script src="./scripts/chat.js" defer></script>
@@ -30,7 +31,9 @@
                 <li><a href="References.html">References</a></li>
                 <li><a href="Progression.html">Progressions</a></li>
                 <li class="right_nav"><a href="./signUp.html">Get Started</a></li>
-                <li class="right_nav"><a class="sign_in" href="./sign_in.html">Sign In</a></li>
+                <li class="right_nav">
+                  <a href="#signInModal" id="openSignInBtn" class="sign_in">Sign In</a>
+                </li>
                 
             </ul>
         </nav>
@@ -115,33 +118,34 @@
             <h3>Study Partner</h3>
         </div>
     </div>
+        <section class="chatty-intro">
+            <div class="chatty-content">
+                <div class="chatty-text">
+                    <h2>Meet Chatty, Your Personal AI Learning Companion.</h2>
 
-    <h2 class="welcome-message">Head over to the learning hub to get started!</h2>
-    <h3 class="welcome-submessage">Start your journey today! (sign in to save progress!)</h3>
-    <div class="directlink">
-    <button class="portal-btn" onclick="window.location.href='LearningHub.html'">Go to Learning Hub</button>
-    </div>
-    <!-- <h5>Ethical Use Cases:</h5>
-    <ul>
-        <li>Using AI to Further Knowledge by asking Questions</li>
-        <li>Translate Languages to better understand People</li>
-        <li>Help with Organizing Plans and Schedules</li>
-        
-    </ul> -->
-    <div class="chatty-intro">
-        <h2>Meet Chatty, Your personal AI Learning Companion.</h2>
-        <p>Chatty is an AI-powered chatbot designed to assist you in your learning journey. Whether you have questions, need explanations, or want to explore new topics, Chatty is here to help.</p>
-        <p>Simply click the Chatty icon at the bottom right corner of your screen to start a conversation.</p>
-        <ul>
-            <li>Some questions you can ask Chatty:</li>
-            <li>What?</li>
-            <li>What?</li>
-            <li>What?</li>
-            <li>What?</li>
-            <li>What?</li>
-            <li>What?</li>
-        </ul>
-    </div>
+                    <p>
+                        Chatty is an AI-powered chatbot designed to assist you
+                        in your learning journey. Whether you have questions,
+                        need explanations, or want to explore new topics,
+                        Chatty is here to help.
+                    </p>
+
+                    <p>Click Chatty to start a conversation or Click on one of these example question.</p>
+
+                    <!-- Keep your list of example questions here. -->
+                </div>
+
+                <!-- The floating Chatty will align with this space. -->
+                <div class="chatty-slot"></div>
+
+                    <div class="chatty-questions">
+                        <button class="question-btn" type="button" data-question="How can I use AI ethically?"><span>How can I use AI ethically?</span></button>
+                        <button class="question-btn" type="button" data-question="What is AI bias?"><span>What is AI bias?</span></button>
+                        <button class="question-btn" type="button" data-question="Can AI make mistakes?"><span>Can AI make mistakes?</span></button>
+                        <button class="question-btn" type="button" data-question="How do I check AI answers?"><span>How do I check AI answers?</span></button>
+                    </div>
+            </div>
+        </section>
 
 
     <div class="chat-dock">
@@ -172,13 +176,87 @@
     </div>
 
     </div>
+
+    <section class="learning-start" aria-labelledby="learning-start-title">
+        <h2 id="learning-start-title" class="welcome-message">Head over to the learning hub to get started!</h2>
+        <h3 class="welcome-submessage">Start your journey today! (sign in to save progress!)</h3>
+        <div class="directlink">
+            <button type="button" class="portal-btn" onclick="window.location.href='LearningHub.html'">Go to Learning Hub</button>
+        </div>
+    </section>
     </main>
 
     <footer>
         <p>&copy; 2026-2027 AI Learning Platform. All rights reserved.</p>
         <button type="button" id="topBtn">Back to the Top ↑</button>
     </footer>
+    
     <!-- <img class="cursor" src="./photos/cursor.png" alt="Custom Cursor"> -->
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <!--SIGN IN POPUP DONT MESS WITH THIS GUYS(nit)-->
+    <div id="signInModal" class="modal-overlay" aria-hidden="true">
+        <div class="modal-card">
+            
+        
+            <!--CLOSE BUTTON-->
+        <button type="button" class="modal-close" id="closeSignInBtn" aria-label="Close">&times;</button>
+        
+        <!--TOP LOFO-->
+        <div class="modal-logo-wrapper">
+            <img src="./photos/logo.svg" alt="Logo" class="modal-logo">
+        </div>
+        
+    <!--TITLE-->
+    <h2 class="modal-title">Sign in</h2>
+
+    <!--SIGN IN FORMMM-->
+    <form id="signInForm" class="modal-form">
+      <input 
+        type="email" 
+        id="signInEmail" 
+        class="modal-input" 
+        placeholder="Email or username" 
+        autocomplete="username" 
+        required
+      >
+      <input 
+        type="password" 
+        id="signInPassword" 
+        class="modal-input" 
+        placeholder="Password" 
+        autocomplete="current-password" 
+        required
+      >
+      
+      
+      <button type="submit" class="modal-btn-dark">Sign in with YOUR email</button>
+    </form>
+
+    <!-- ts the error message-->
+     <p id="signInStatus" class="modal-status" role="status" aria-live="polite"></p>
+
+ <p class="modal-footer-text">
+      New user? <a href="./signUp.html" class="modal-link">Sign up</a>
+    </p>
+  </div>
+</div>     
+  
+<!--load authentication script as a module-->
+<script type="module" src="./scripts/loginAndSignUp.js"></script>
+
     
 </body>
 </html>

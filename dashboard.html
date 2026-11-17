@@ -1,27 +1,496 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module">
+import { supabaseClient as db } from "./scripts/supabaseClient.js";
+
+const profileForm = document.getElementById("profile-form");
+const avatarForm = document.getElementById("avatar-form");
+const usernameInput = document.getElementById("profile-username");
+const emailInput = document.getElementById("profile-email");
+const avatarPreview = document.getElementById("current-avatar");
+const statusText = document.getElementById("profile-status");
+const avatarStatus = document.getElementById("avatar-status");
+const saveButton = document.getElementById("save-profile");
+const avatarButton = document.getElementById("save-avatar");
+const welcomeName = document.getElementById("username");
+
+const avatarPaths = {
+  1: "./photos/avatar1.jpg",
+  2: "./photos/avatar2.jpg",
+  3: "./photos/avatar3.jpg"
+};
+let currentUserId = null;
+let profileReady = false;
+saveButton.disabled = true;
+avatarButton.disabled = true;
+
+async function loadProfile() {
+  try {
+    const { data: { user }, error: authError } = await db.auth.getUser();
+    if (authError || !user) {
+      window.location.replace("./sign_in.html");
+      return;
+    }
+    currentUserId = user.id;
+    emailInput.value = user.email ?? "";
+    let { data: profile, error } = await db
+      .from("profiles")
+      .select("username, avatar_id")
+      .eq("id", currentUserId)
+      .maybeSingle();
+    if (error) throw error;
+
+    if (!profile) {
+      const defaultUsername = user.user_metadata?.username ||
+        "player_" + user.id.replace(/-/g, "").slice(0, 16);
+      const result = await db.from("profiles").insert({
+        id: currentUserId,
+        username: defaultUsername,
+        avatar_id: 1
+      }).select("username, avatar_id").single();
+      if (result.error) throw result.error;
+      profile = result.data;
+    }
+
+    usernameInput.value = profile.username ?? "";
+    welcomeName.textContent = profile.username || user.user_metadata?.username || user.email;
+    const avatarId = Object.hasOwn(avatarPaths, profile.avatar_id) ? profile.avatar_id : 1;
+    document.querySelector('input[name="avatar"][value="' + avatarId + '"]').checked = true;
+    avatarPreview.src = avatarPaths[avatarId];
+    profileReady = true;
+    saveButton.disabled = false;
+    avatarButton.disabled = false;
+  } catch (error) {
+    statusText.textContent = "Unable to load profile: " + error.message;
+    avatarStatus.textContent = "Load your profile before saving an avatar.";
+  }
+}
+
+document.querySelectorAll('input[name="avatar"]').forEach(input => {
+  input.addEventListener("change", () => {
+    avatarPreview.src = avatarPaths[Number(input.value)];
+    avatarStatus.textContent = "Preview only. Confirm to save your avatar.";
+  });
+});
+
+// Each form sends only its own field to the database.
+async function saveField(changes, button, status, successMessage) {
+  if (!profileReady) return false;
+  button.disabled = true;
+  status.textContent = "Saving...";
+  try {
+    const { error } = await db.from("profiles")
+      .update(changes).eq("id", currentUserId).select("id").single();
+    if (error) throw error;
+    status.textContent = successMessage;
+    return true;
+  } catch (error) {
+    status.textContent = error.code === "23505"
+      ? "Username is already taken."
+      : "Unable to save: " + error.message;
+    return false;
+  } finally {
+    button.disabled = false;
+  }
+}
+
+profileForm.addEventListener("submit", async event => {
+  event.preventDefault();
+  const username = usernameInput.value.trim();
+  if (!/^[A-Za-z0-9_]{3,24}$/.test(username)) {
+    statusText.textContent = "Username must be 3-24 letters, numbers, or underscores.";
+    return;
+  }
+  const saved = await saveField({ username }, saveButton, statusText, "Username saved!");
+  if (saved) {
+    usernameInput.value = username;
+    welcomeName.textContent = username;
+  }
+});
+
+avatarForm.addEventListener("submit", async event => {
+  event.preventDefault();
+  const selected = avatarForm.querySelector('input[name="avatar"]:checked');
+  const avatarId = Number(selected?.value);
+  if (!Object.hasOwn(avatarPaths, avatarId)) {
+    avatarStatus.textContent = "Choose an avatar first.";
+    return;
+  }
+  await saveField({ avatar_id: avatarId }, avatarButton, avatarStatus, "Avatar saved!");
+});
+
+loadProfile().then(loadProgress);
+
+// Progress is read from Supabase; this page never awards or changes XP.
+async function loadProgress() {
+  const status = document.getElementById("progress-status");
+  const refresh = document.getElementById("refresh-progress");
+  if (!currentUserId) {
+    status.textContent = "Sign in to see your progress.";
+    return;
+  }
+  refresh.disabled = true;
+  status.textContent = "Loading your progress...";
+  try {
+    const { data: profile, error } = await db.from("profiles")
+      .select("xp, level").eq("id", currentUserId).single();
+    if (error) throw error;
+    const xp = Number(profile.xp ?? 0);
+    const level = Number(profile.level ?? 1);
+    if (!Number.isFinite(xp) || !Number.isFinite(level)) {
+      throw new Error("Your progress contains invalid values.");
+    }
+    document.getElementById("dashboard-xp").textContent = xp.toLocaleString();
+    document.getElementById("dashboard-level").textContent = level.toLocaleString();
+    status.textContent = "Your latest saved progress.";
+  } catch (error) {
+    document.getElementById("dashboard-xp").textContent = "—";
+    document.getElementById("dashboard-level").textContent = "—";
+    status.textContent = "Unable to load progress: " + error.message;
+  } finally {
+    refresh.disabled = false;
+  }
+}
+
+document.getElementById("refresh-progress").addEventListener("click", loadProgress);
+
+
+</script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./auth-modal.css">
+
+    <script src="./scripts/script.js" defer></script>
+    <script type="module" src="./scripts/loginAndSignUp.js"></script>
+
+    <style>
+        header {
+            background-image: none;
+            color: white;
+            padding: 10px 8px;
+        }
+
+        header ul.topnav {
+            background-color: rgba(126, 200, 83, 0.327);
+        }
+
+        h1, h2 {
+            text-align: left;
+            padding-left: 50px;
+            margin-top: 20px;
+            padding-bottom: 0px;
+        }
+
+        h2 {
+            padding-top: 0px;
+            font-family: Arial, sans-serif;
+        }
+
+
+        input {
+            border-radius: 20px;
+            border: 1px solid #c0c0c0;
+            outline: 0 !important;
+            box-sizing: border-box;
+            padding: 12px 15px;
+        }
+
+        #save-profile, #save-avatar {
+            background-color: #51c9a5;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+        }        .input {
+            border-radius: 20px;
+            border: 1px solid #c0c0c0;
+            outline: 0 !important;
+            box-sizing: border-box;
+            padding: 12px 15px;
+        }
+
+
+        /* Profile */
+        .profile-settings {
+            margin: 40px;
+            max-width: 300px;
+            padding: 24px;
+            border: 5px solid #334c53;
+            border-radius: 26px;
+        }
+
+        #current-avatar {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 50%;
+        }
+
+        .avatar-options {
+        display: flex;
+        gap: 16px;
+        margin: 16px 0;
+        }
+
+        .avatar-choice {
+        cursor: pointer;
+        position: relative;
+        }
+
+        .avatar-choice input {
+        position: absolute;
+        opacity: 0;
+        }
+
+        .avatar-choice img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 16px;
+        border: 2px solid transparent;
+        transition: 0.2s ease;
+        }
+
+        .avatar-choice:hover img {
+        transform: translateY(-4px);
+        }
+
+        .avatar-choice input:checked + img {
+        border-color: #51c9a5;
+        }
+
+        .avatar-choice input:focus-visible + img {
+        outline: 3px solid #51c9a5;
+        outline-offset: 3px;
+
+        }
+
+        .dashboard-progress {
+            margin: 32px 40px;
+            padding: 24px;
+            max-width: 600px;
+            border: 1px solid #334c53;
+            border-radius: 26px;
+            background: rgba(13, 36, 40, 0.92);
+            color: #fff;
+        }
+
+        .progress-heading {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 16px;
+        }
+.dashboard-progress {
+    margin: 32px 24px 32px auto;
+    padding: 28px;
+    background-color: #a1f19d;
+    border: 1px solid #234023;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+}
+
+/* Header & Title Styling */
+.dashboard-progress h2 {
+    padding: 0;
+    margin: 0 0 16px 0;
+    font-size: 24px;
+    font-weight: 700;
+    color: #3d442e;
+    letter-spacing: -0.3px;
+}
+
+/* Refresh Action Button */
+#refresh-progress {
+    background: #72dd6e;
+    color: #102b28;
+    border: 0;
+    border-radius: 20px;
+    padding: 10px 18px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+#refresh-progress:hover {
+    background: #71f85f;
+}
+
+#refresh-progress:active {
+    transform: scale(0.98);
+}
+
+#refresh-progress:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+/* Progress Statistics Grid Layout */
+.progress-stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin: 24px 0 16px;
+}
+
+.progress-stats > div {
+    padding: 20px;
+    border-radius: 16px;
+    background: rgba(113, 201, 81, 0.48);
+    border: 1px solid #334c53;
+}
+
+.progress-stats dt {
+    font: 16px Arial, sans-serif;
+    color: #446a34;
+}
+
+.progress-stats dd {
+    margin: 10px 0 0;
+    font: bold 36px Arial, sans-serif;
+    color: #5dc951;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 500px) {
+    .dashboard-progress {
+        margin: 24px 16px;
+        padding: 20px;
+    }
+    
+    .progress-stats {
+        grid-template-columns: 1fr; /* Stacks stats vertically on smaller screens */
+        gap: 12px;
+    }
+    
+    .progress-stats > div {
+        padding: 14px;
+    }
+}
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 358px) minmax(0, 658px);
+            grid-template-areas: "profile progress";
+            justify-content: space-between;
+            align-items: start;
+            gap: 32px;
+            margin: 32px 24px 40px 40px;
+        }
+        .dashboard-layout > .profile-settings { grid-area: profile; margin: 0; max-width: none; }
+        .dashboard-layout > .dashboard-progress { grid-area: progress; margin: 0; max-width: none; }
+        @media (max-width: 900px) {
+            .dashboard-layout {
+                grid-template-columns: minmax(0, 1fr);
+                grid-template-areas: "profile" "progress";
+                margin: 24px 16px;
+            }
+            .dashboard-layout > .profile-settings { max-width: 300px; }
+        }
+    </style>
 </head>
 <body>
-    <h1>Dashboard</h1>
-    <p>Welcome to your dashboard!</p>
+    <div class="grid-base"></div>
+    <div class="grid-float"></div>
+    <header>
+            <nav>
+            <ul class="topnav">
+                <li><img src="./photos/logo.svg" alt="Logo"></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="MissionPage.html">Mission Page</a></li>
+                <li><a href="LearningHub.html">Learning Hub</a></li>
+                <li><a href="Scoreboard.html">Scoreboard</a></li>
+                <li><a href="References.html">References</a></li>
+                <li><a href="Progression.html">Progressions</a></li>
+                <li class="right_nav"><a href="./signUp.html">Get Started</a></li>
+                <li class="right_nav">
+                  <a href="#signInModal" id="openSignInBtn" class="sign_in">Sign In</a>
+                </li>
+                
+            </ul>
+        </nav>
+    </header>
+    <h1>My Dashboard</h1>
+    <h2>Welcome, <span id="username"></span>!</h2>
 
-    <script type="module">
-    import { supabaseClient } from "./scripts/supabaseClient.js";
+    <div class="dashboard-layout">
+    <section class="dashboard-progress">
+        <div class="progress-heading">
+            <h2 id="progress-title">Your Progress</h2>
+            <button type="button" id="refresh-progress">Refresh</button>
+        </div>
+        <dl class="progress-stats">
+            <div><dt>Total XP</dt><dd id="dashboard-xp">—</dd></div>
+            <div><dt>Current Level</dt><dd id="dashboard-level">—</dd></div>
+        </dl>
+        <p id="progress-status" role="status">Loading your progress...</p>
+    </section>
 
-    const { data: { user }, error } =
-        await supabaseClient.auth.getUser();
 
-    if (error || !user) {
-        window.location.replace("sign_in.html");
-    } else {
-        console.log("Logged in:", user.email);
-        console.log("Username:", user.user_metadata.username);
-    }
-</script>
+    <section class="profile-settings">
+    <h2>Profile Settings</h2>
+
+    <img id="current-avatar"
+        src="./photos/avatar1.jpg"
+        alt="Your profile picture"
+        width="100">
+
+    <form id="profile-form">
+        <label for="profile-username">Username</label><br>
+        <input
+        id="profile-username"
+        type="text"
+        minlength="3"
+        maxlength="24"
+        pattern="[A-Za-z0-9_]{3,24}"
+        required>
+        <br>
+
+        <label for="profile-email">Email</label><br>
+        <input id="profile-email" type="email" readonly><br><br>
+        <button type="submit" id="save-profile" disabled>Save Username</button>
+        <p id="profile-status" role="status"></p>
+    </form>
+
+    <form id="avatar-form">
+        <h3>Choose your avatar</h3>
+
+        <div class="avatar-options">
+        <label class="avatar-choice">
+            <input type="radio" name="avatar"
+                value="1" checked>
+            <img src="./photos/avatar1.jpg" alt="Avatar 1">
+        </label>
+
+        <label class="avatar-choice">
+            <input type="radio" name="avatar" value="2">
+            <img src="./photos/avatar2.jpg" alt="Avatar 2">
+        </label>
+
+        <label class="avatar-choice">
+            <input type="radio" name="avatar" value="3">
+            <img src="./photos/avatar3.jpg" alt="Avatar 3">
+        </label>
+        </div>
+
+        <button type="submit" id="save-avatar" disabled>Confirm Avatar</button>
+        <p id="avatar-status" role="status"></p>
+    </form>
+    </section>
+
+    </div>
+
+    <!-- <p>Welcome to your dashboard!</p> -->
+
+
+
+
 </body>
 </html>

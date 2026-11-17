@@ -9,3 +9,4 @@ export const supabaseClient = createBrowserClient(
 );
 
 window.supabaseClient = supabaseClient;
+window.profileDB = supabaseClient;

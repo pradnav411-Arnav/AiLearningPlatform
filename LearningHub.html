@@ -6,29 +6,98 @@
     <meta name="description" content="Explore AI skills, build confidence, and start learning with the AI Learning Hub.">
     <title>Learning Hub | AI Skills</title>
     <link rel="stylesheet" href="./style3.css">
+    <link rel="stylesheet" href="./auth-modal.css">
+    <script type="module" src="./scripts/loginAndSignUp.js"></script>
 </head>
+
 <body>
-    <header class="site-header">
-        <nav class="navbar" aria-label="Main navigation">
-            <a class="brand" href="index.html" aria-label="Home">
-                <img src="./photos/logo.png" alt="Site logo">
-            </a>
+    <div class="grid-base"></div>
+    <div class="grid-float"></div>
 
-            <div class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="MissionPage.html">Mission Page</a>
-                <a class="active" href="LearningHub.html">Learning Hub</a>
-                <a href="Scoreboard.html">Scoreboard</a>
-                <a href="References.html">References</a>
-            </div>
-
-            <div class="nav-actions">
-                <a class="nav-cta" href="./get_started.html">Get Started <span>↗</span></a>
-                <a class="sign-in" href="./sign_in.html">Sign In</a>
-            </div>
+    <header class="home-header">
+        <nav>
+            <ul class="topnav">
+                <li><img src="./photos/logo.svg" alt="Logo"></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="MissionPage.html">Mission Page</a></li>
+                <li><a href="LearningHub.html">Learning Hub</a></li>
+                <li><a href="Scoreboard.html">Scoreboard</a></li>
+                <li><a href="References.html">References</a></li>
+                <li><a href="Progression.html">Progressions</a></li>
+                <li class="right_nav"><a href="./signUp.html">Get Started</a></li>
+                <li class="right_nav">
+                    <a href="#signInModal" class="sign_in">Sign In</a>
+                </li>
+            </ul>
         </nav>
+        <div class="page-title">
+        <h1>Learning Hub</h1>
+        <p>Start Place to Exploer AI</p>
+        </div>
     </header>
-    
-    
+
+    <section class="section">
+        <h2>Purpose</h2>
+        <p>
+            The Learning Hub is a page designed to introduce users to Artificial Intelligence through beginner-friendly introductory quests. It provides users with an opportunity to explore AI concepts, understand how different AI tools work, and gain hands-on experience through interactive activities. These introductory quests help users build foundational knowledge, develop confidence, and become familiar with AI before moving on to the more advanced challenges and learning paths in the Progressions page.
+        </p>
+    </section>
+
+    <div class="box-container">
+
+        <div class="info-box">
+            <div class="box-icon">🔎</div>
+            <h2>Problem Solving</h2>
+            <p>
+                This page will help you understand how to problem solve with AI effectively.
+            </p>
+            <a href="ProblemSolving.html">Explore More →</a>
+        </div>
+
+        <div class="info-box">
+            <div class="box-icon">🧠</div>
+            <h2>Fostering Knowledge</h2>
+            <p>
+                Understand how to effectively learn AI to gain knowledge and study for classes.
+            </p>
+            <a href="FosteringKnowledge.html">Get Started →</a>
+        </div>
+
+        <div class="info-box">
+            <div class="box-icon">🕰️</div>
+            <h2>Time Management</h2>
+            <p>
+                Discover how AI can help you organize tasks and manage your time more effectively.
+            </p>
+            <a href="TimeManagement.html">Learn More →</a>
+        </div>
+
+        <div class="info-box">
+            <div class="box-icon">📖</div>
+            <h2>Study Partner</h2>
+            <p>
+                Learn how to study with AI by making different study materials.
+            </p>
+            <a href="StudyPartner.html">Learn More →</a>
+        </div>
+    </div>
+    <section class="section">
+        <h2>Progressions</h2>
+        <p>
+            The progressions page will be the main storyline which players will follow to complete the levels and gain the maximum xp which could get you featured on the scoreboard. These 4 preliminary pages are encouraged as users will be able to understand content better as these topics directly correlate. Down below click on the button to go to the progression page.
+    </section>
+    <div class="progress-button-container">
+    <a href="Progression.html" class="progress-button">View Progressions</a>
+    </div>
+
+    <script>
+        const grid = document.querySelector(".grid-float");
+
+        document.addEventListener("mousemove", (e) => {
+            grid.style.setProperty("--x", `${e.clientX}px`);
+            grid.style.setProperty("--y", `${e.clientY}px`);
+        });
+    </script>
+
 </body>
 </html>

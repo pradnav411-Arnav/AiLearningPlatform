@@ -3,44 +3,104 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign Up</title>
+  <title>Sign Up | AI Learning Platform</title>
   <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./auth-modal.css">
 
+  <script src="./scripts/script.js" defer></script>
   <script type="module" src="./scripts/loginAndSignUp.js"></script>
+  <style>
+    /* body.signup-page { margin: 0; min-height: 100svh; background: radial-gradient(ellipse at 20% 10%, #f3ffd7 0, transparent 55%), #e0ead7; color: #203026; font-family: Arial, sans-serif; } */
+    .signup-page *, .signup-page *::before, .signup-page *::after { box-sizing: border-box; }
+    .signup-page header { background: none; padding: 16px 24px; height: auto; }
+    .signup-shell { min-height: calc(100svh - 110px); display: grid; place-items: center; padding: 24px 24px 48px; }
+    .signup-card { display: grid; grid-template-columns: 1fr 1fr; width: 100%; max-width: 1000px; padding: 8px; border-radius: 22px; background: #fff; box-shadow: 0 16px 55px rgba(44, 69, 42, .09); overflow: hidden; }
+    .signup-form-panel { padding: 34px 48px 38px; }
+    .signup-brand { display: block; width: 34px; height: 34px; margin: 0 auto 10px; }
+    .signup-form-panel h1 { margin: 0; padding: 0; color: #17261b; font: 600 38px/1.2 Georgia, serif; text-align: center; }
+    .signup-intro { margin: 10px 0 28px; text-align: center; color: #73806e; font-size: 13px; line-height: 1.6; }
+    .signup-form-panel form { width: 100%; margin: 0; }
+    .signup-field { margin-bottom: 17px; }
+    .signup-field label { display: block; margin: 0 0 7px; color: #304331; font-size: 13px; font-weight: 600; }
+    .signup-page .signup-field input { display: block; width: 100%; min-width: 0; height: 45px; margin: 0; padding: 11px 13px; border: 1px solid #cbdcbe; border-radius: 9px; background: #f0f8e9; color: #203026; font: 14px Arial, sans-serif; box-shadow: none; }
+    .signup-page .signup-field input::placeholder { color: #8b9784; }
+    .signup-page .signup-field input:focus { outline: 2px solid #72975c !important; outline-offset: 2px; border-color: #72975c; }
+    .signup-submit { display: block; width: 100%; min-height: 45px; margin-top: 24px; padding: 12px 20px; border: none; border-radius: 9px; background: #2f5936; color: #fff; font: 600 14px Arial, sans-serif; cursor: pointer; }
+    .signup-submit:hover { background: #25462b; }
+    .signup-submit:focus-visible { outline: 3px solid #72975c; outline-offset: 3px; }
+    .signup-login { margin: 21px 0 0; text-align: center; font-size: 13px; line-height: 1.6; color: #73806e; }
+    .signup-login a, .signup-dashboard a { color: #305c37; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+    .signup-message { margin: 12px 0 0; font-size: 13px; line-height: 1.5; }
+    .signup-message:empty { display: none; }
+    #error-message { color: #a32b2b; }
+    #success-message { color: #305c37; }
+    .signup-dashboard { font-size: 13px; text-align: center; }
+    .signup-visual { position: relative; min-height: 580px; overflow: hidden; border-radius: 15px; background: #dbe7cf; }
+    .signup-image { display: block; width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; }
+    @media (max-width: 760px) { .signup-card { grid-template-columns: 1fr; max-width: 480px; } .signup-form-panel { padding: 30px 26px; } .signup-visual { min-height: 260px; } .signup-shell { padding: 12px 16px 32px; } .signup-page header { padding: 12px 16px; } }
+    @media (prefers-reduced-motion: reduce) { .signup-page * { scroll-behavior: auto; } }
+    #signup-title {
+      font-family: 'Talina', Arial, sans-serif;
+    }
+  </style>
 </head>
-<body>
-
+<body class="signup-page">
+    <div class="grid-base"></div>
+    <div class="grid-float"></div>
   <header>
-    <ul class="topnav">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="MissionPage.html">Mission Page</a></li>
-      <li><a href="Scoreboard.html">Scoreboard</a></li>
-      <li class="right_nav"><a href="sign_in.html" class="sign_in">Sign In</a></li>
-    </ul>
+    <nav>
+            <ul class="topnav">
+                <li><img src="./photos/logo.svg" alt="Logo"></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="MissionPage.html">Mission Page</a></li>
+                <li><a href="LearningHub.html">Learning Hub</a></li>
+                <li><a href="Scoreboard.html">Scoreboard</a></li>
+                <li><a href="References.html">References</a></li>
+                <li><a href="Progression.html">Progressions</a></li>
+                <li class="right_nav"><a href="./signUp.html">Get Started</a></li>
+                <li class="right_nav">
+                  <a href="#signInModal" id="openSignInBtn" class="sign_in">Sign In</a>
+                </li>
+                
+            </ul>
+        </nav>
   </header>
-
-  <div class="row" style="margin-top: 40px;">
-    <div class="header-content" style="height: auto; padding: 30px; width: 600px; margin: 0 auto;">
-      <h2 style="color: white; margin-top: 0;">Create Account</h2>
-      
-      <form id="signUpForm">
-        <input type="text" id="username" name="username" class="portal-input" placeholder="Username" required style="width: 60%; margin-bottom: 15px;"><br>
-        <input type="email" id="email" name="email" class="portal-input" placeholder="Email" required style="width: 60%; margin-bottom: 15px;"><br>
-        <input type="password" id="password" name="password" class="portal-input" placeholder="Create Password" required style="width: 60%; margin-bottom: 25px;"><br>
-        <input type="password" id="ConfirmPassword" name="ConfirmPassword" class="portal-input" placeholder="Retype Password" required style="width: 60%; margin-bottom: 25px;"><br>
-        
-        <button type="submit" class="portal-btn">Sign Up</button>
-      </form>
-
-      <p style="color: white; margin-top: 20px;">
-        Already have an account? <a href="sign_in.html" style="color: #86d8f6; font-weight: bold;">Log in</a>
-      </p>
-
-      <p id="error-message" style="color: #ffb3b3; font-weight: bold;"></p>
-      <p id="success-message" style="color: #b3ffb3; font-weight: bold;"></p>
-      <p id="dashboard-link" style="display: none;"><a href="dashboard.html" style="color: white; font-weight: bold;">Go to Dashboard</a></p>
-    </div>
-  </div>
-
+  <main class="signup-shell">
+    <section class="signup-card" aria-labelledby="signup-title">
+      <div class="signup-form-panel">
+        <a href="index.html" aria-label="AI Learning Platform home"><img class="signup-brand" src="./photos/logo.svg" alt=""></a>
+        <h1 id="signup-title">Sign Up</h1>
+        <p class="signup-intro">Create your account and start learning.</p>
+        <form id="signUpForm">
+          <div class="signup-field">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Choose a username" autocomplete="username" required>
+          </div>
+          <div class="signup-field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="user@learning.ai" autocomplete="email" required>
+          </div>
+          <div class="signup-field">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Create a password" autocomplete="new-password" required>
+          </div>
+          <div class="signup-field">
+            <label for="ConfirmPassword">Confirm password</label>
+            <input type="password" id="ConfirmPassword" name="ConfirmPassword" placeholder="Retype your password" autocomplete="new-password" required>
+          </div>
+          <button type="submit" class="signup-submit">Create account</button>
+        </form>
+        <p id="error-message" class="signup-message" role="alert"></p>
+        <p id="success-message" class="signup-message" role="status"></p>
+        <p id="dashboard-link" class="signup-dashboard" style="display: none;"><a href="dashboard.html">Go to Dashboard</a></p>
+        <p class="signup-login">Already have an account? <a href="#signInModal" data-open-sign-in>Log in</a></p>
+      </div>
+      <aside class="signup-visual" aria-label="Sign-up image">
+        <!-- RIGHT-SIDE IMAGE: Add src="./photos/your-image.jpg" to the image below,
+             remove hidden, and delete the signup-image-placeholder div. -->
+        <img class="signup-image" alt="" src="./photos/panda.svg" style="height: 90%; padding-top: 10%;">
+      </aside>
+    </section>
+  </main>
 </body>
 </html>

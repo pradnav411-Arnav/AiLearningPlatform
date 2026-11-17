@@ -7,26 +7,116 @@ const form = document.getElementById("chat-form");
 const input = document.getElementById("chat-input");
 const messages = document.getElementById("chat-messages");
 
-// Stay in the viewport, lifting above the footer only when it becomes visible.
+// Stay bottom-right until Chatty reaches the section's vertical center.
 const widget = document.querySelector(".chat-widget");
 const footer = document.querySelector("footer");
-if (widget && footer) {
+const intro = document.querySelector(".chatty-intro");
+
+if (widget && (intro || footer)) {
   let scheduled = false;
-  const updatePosition = () => {
-    const overlap = Math.max(0, window.innerHeight - footer.getBoundingClientRect().top);
-    widget.style.setProperty("--footer-overlap", `${overlap}px`);
+
+const updatePosition = () => {
+    const currentLift =
+        parseFloat(widget.style.getPropertyValue("--footer-overlap")) || 0;
+
+    const gap =
+        (parseFloat(getComputedStyle(widget).bottom) || 16) - currentLift;
+
+    const iconHeight = toggle.offsetHeight;
+    const iconWidth = toggle.offsetWidth;
+    const floatingBottom = window.innerHeight - gap;
+    const slot = intro?.querySelector(".chatty-slot");
+
+    let stopBottom = floatingBottom;
+    let scale = 1;
+    let shiftLeft = 0;
+
+    if (intro && slot) {
+        const sectionBounds = intro.getBoundingClientRect();
+        const slotBounds = slot.getBoundingClientRect();
+        const sectionCenter = slotBounds.top + slotBounds.height / 2;
+
+        stopBottom = Math.min(
+            floatingBottom,
+            sectionCenter + iconHeight / 2
+        );
+
+        const reachedSection =
+            sectionCenter + iconHeight / 2 <= floatingBottom;
+
+        if (reachedSection) {
+            const bottomLimit = footer
+                ? Math.min(
+                    window.innerHeight,
+                    footer.getBoundingClientRect().top
+                )
+                : window.innerHeight;
+
+            const availableHeight = Math.max(
+                0,
+                2 * Math.min(
+                    sectionCenter - gap,
+                    bottomLimit - sectionCenter - gap
+                )
+            );
+
+            scale = Math.max(
+                1,
+                Math.min(
+                    sectionBounds.height * 0.75 / iconHeight,
+                    slotBounds.width / iconWidth,
+                    availableHeight / iconHeight
+                )
+            );
+
+            const rightGap =
+                parseFloat(getComputedStyle(widget).right) || 16;
+
+            const floatingCenterX =
+                document.documentElement.clientWidth
+                - rightGap
+                - iconWidth / 2;
+
+            const slotCenterX =
+                slotBounds.left + slotBounds.width / 2;
+
+            shiftLeft = slotCenterX - floatingCenterX;
+        }
+    }
+
+    if (footer) {
+        stopBottom = Math.min(
+            stopBottom,
+            footer.getBoundingClientRect().top - gap
+        );
+    }
+
+    widget.style.setProperty(
+        "--footer-overlap",
+        `${Math.max(0, floatingBottom - stopBottom)}px`
+    );
+
+    toggle.style.setProperty("--chatty-scale", scale);
+    toggle.style.setProperty("--chatty-shift", `${shiftLeft}px`);
+
     scheduled = false;
-  };
+};
+
   const schedulePosition = () => {
     if (scheduled) return;
     scheduled = true;
     requestAnimationFrame(updatePosition);
   };
+
   window.addEventListener("scroll", schedulePosition, { passive: true });
   window.addEventListener("resize", schedulePosition);
+
   const observer = new ResizeObserver(schedulePosition);
   observer.observe(document.body);
-  observer.observe(footer);
+  observer.observe(toggle);
+  if (footer) observer.observe(footer);
+  if (intro) observer.observe(intro);
+
   updatePosition();
 }
 
@@ -53,6 +143,23 @@ close.addEventListener("click", () => setOpen(false));
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && !box.hidden) setOpen(false);
 });
+
+
+document.querySelectorAll(".question-btn").forEach(button => {
+  button.addEventListener("click", () => {
+    const question = button.dataset.question;
+
+    // Open the existing chatbot
+    setOpen(true);
+
+    // Insert the selected question
+    input.value = question;
+
+    // Focus the text field
+    input.focus();
+  });
+});
+
 
 // Cloudflare sends structured formatting; this only creates safe browser nodes.
 function renderParts(parent, parts, allowLinks = true) {
