@@ -38,103 +38,47 @@
 
     <main>
         <section class="section">
-            <h1>What Does Having an AI Study Partner Mean?</h1>
+            <h1>Intoduction To prompting</h1>
 
             <p>
-                An AI study partner is a tool that helps you learn by answering
-                questions, explaining difficult topics, and giving you ways
-                to practice what you have learned. Instead of simply searching
-                for an answer, you can have a back-and-forth conversation with
-                AI to understand a subject more deeply.
+               Artificial Intelligence (AI) is a powerful technology that is designed to generate responses and perform tasks based on user input. The effectiveness, accuracy, and usefulness of AI-generated responses depend heavily on the prompts provided by users. Clear, detailed, and well-structured prompts help AI better understand the user's needs, resulting in more relevant and informative answers. As AI continues to develop, learning how to create strong prompts has become an essential skill for maximizing its potential.
             </p>
+            <h1>Role-Based AI prompting.</h1>
 
             <p>
-                For example, if you are struggling with a physics problem,
-                you can ask AI to explain the concept, walk you through the
-                steps, and give you a similar problem to try on your own.
+                One of the most important prompting techniques is assigning a role to the AI. Giving AI a specific role, such as a teacher, scientist, historian, or software engineer, helps guide the perspective and style of its responses. This allows the AI to provide explanations that are more accurate, focused, and suited to the user's goals. Role-based prompting can improve the quality of information, make responses easier to understand, and ensure that the AI addresses topics in a way that aligns with the intended audience or purpose.
             </p>
+            <h2>A Prompting Tutorial</h2>
+            <div class="prompt-builder">
+    <h3>Try Role-Based Prompting</h3>
 
-            <h2>How Can AI Be Your Study Partner?</h2>
+    <label for="roleInput">AI Role</label>
+    <input
+        type="text"
+        id="roleInput"
+        placeholder="Example: History Teacher"
+    >
 
-            <ul>
-                <li><strong>Explain difficult concepts:</strong> Ask AI to break down complicated topics into simpler explanations.</li>
-                <li><strong>Answer questions:</strong> Ask follow-up questions whenever you are confused or need clarification.</li>
-                <li><strong>Create practice problems:</strong> Generate questions that test your understanding of a topic.</li>
-                <li><strong>Give feedback:</strong> Share your work and ask AI to point out mistakes or explain where your reasoning went wrong.</li>
-                <li><strong>Adjust to your level:</strong> Ask for easier explanations or more challenging questions depending on your progress.</li>
-            </ul>
+    <label for="promptInput">Your Prompt</label>
+    <textarea
+        id="promptInput"
+        rows="5"
+        placeholder="Example: Explain the causes of World War I."
+    ></textarea>
 
-            <h2>Learning Through Practice and Quizzes</h2>
+    <button onclick="generatePrompt()">
+        Generate Prompt
+    </button>
 
-            <p>
-                One of the most useful ways to study with AI is by asking it
-                to quiz you. You can provide a topic, chapter, or set of notes
-                and ask AI to create practice questions.
-            </p>
-
-            <p>
-                Instead of showing you all the answers immediately, you can
-                ask AI to give you one question at a time. After you respond,
-                it can explain whether your answer is correct and help you
-                understand any mistakes.
-            </p>
-
-            <p>
-                For example, you could ask:
-                <em>"Quiz me on Newton's laws of motion. Give me one question
-                at a time, wait for my answer, and explain anything I get
-                wrong."</em>
-            </p>
-
-            <h2>Getting Step-by-Step Explanations</h2>
-
-            <p>
-                Sometimes, seeing the final answer to a problem is not enough.
-                Understanding how to reach that answer is what helps you
-                improve. AI can guide you through a problem one step at a time
-                and explain why each step is necessary.
-            </p>
-
-            <ul>
-                <li><strong>Math:</strong> Work through equations and understand which formulas to use.</li>
-                <li><strong>Science:</strong> Learn how concepts like forces, energy, and chemical reactions work.</li>
-                <li><strong>History:</strong> Understand important events, causes, and connections between topics.</li>
-                <li><strong>English:</strong> Improve writing, analyze passages, and understand literary concepts.</li>
-                <li><strong>Computer Science:</strong> Debug code, understand programming concepts, and practice problem-solving.</li>
-            </ul>
-
-            <h2>How to Get the Most Out of an AI Study Partner</h2>
-
-            <p>
-                The way you ask questions can make a big difference in how
-                helpful AI is. Rather than asking it to complete an assignment
-                for you, use it to guide your thinking and help you understand
-                the material.
-            </p>
-
-            <ul>
-                <li><strong>Ask specific questions:</strong> Explain exactly what topic or step you are struggling with.</li>
-                <li><strong>Request hints first:</strong> Try solving a problem yourself before asking for the full solution.</li>
-                <li><strong>Ask follow-up questions:</strong> If an explanation does not make sense, ask AI to explain it another way.</li>
-                <li><strong>Practice independently:</strong> Try similar problems without help to check whether you understand the topic.</li>
-                <li><strong>Check important information:</strong> Verify explanations and facts using your class materials or reliable sources.</li>
-            </ul>
-
-            <h2>Why Is Having a Study Partner Important?</h2>
-
-            <p>
-                Having a study partner can make learning more interactive
-                and help you stay engaged with challenging subjects. AI gives
-                you another way to ask questions, practice skills, and receive
-                explanations whenever you need extra support.
-            </p>
-
-            <p>
-                However, AI should support your learning rather than replace
-                your own effort. The goal is to become more confident and
-                independent by understanding the material yourself.
-            </p>
+    <label for="outputPrompt">Generated Prompt</label>
+    <textarea
+        id="outputPrompt"
+        rows="8"
+        readonly
+    ></textarea>
+</div>
         </section>
     </main>
+    
 </body>
 </html>
